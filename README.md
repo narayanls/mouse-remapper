@@ -118,33 +118,7 @@ The interface uses [gettext](https://www.gnu.org/software/gettext/). Strings in 
 - `po/mouse-remapper.pot`: template with every translatable string
 - `po/pt.po`: Portuguese (used for both `pt_BR` and `pt_PT`)
 
-The language is picked from `LANGUAGE`, `LC_ALL`, `LC_MESSAGES` and `LANG`, in the same order gettext uses. To try another language without changing your system:
-
-```bash
-LANGUAGE=en mouse-remapper   # force English
-LANGUAGE=pt mouse-remapper   # force Portuguese
-```
-
-**Adding a language** (requires `gettext`):
-
-1. Create the file from the template, e.g. for Spanish: `msginit -i po/mouse-remapper.pot -o po/es.po -l es`
-2. Translate the `msgstr` entries.
-
-The new language is picked up automatically once the package is rebuilt; there is nothing to change in the code.
-
-**After changing strings in the code**, run `po/update-po.sh` to refresh the template and merge new strings into every `.po` file.
-
-**Running from the repository**: run `po/build-mo.sh` once to compile the translations into `usr/share/locale/`, then `python3 usr/share/mouse-remapper/main.py`. The package build compiles them automatically.
-
-## Publishing a release
-
-The updater compares the installed version with the version in the package file name, so releases must follow these steps:
-
-1. Bump `pkgver` in `pkgbuild/PKGBUILD` (it is also written into the installed app automatically).
-2. Build the package with `makepkg` in the `pkgbuild` folder.
-3. Create a GitHub release with the tag `v<pkgver>` (e.g. `v1.2.0`) and attach the `mouse-remapper-<pkgver>-<pkgrel>-any.pkg.tar.zst` file. The release notes are shown in the update dialog.
-
-Drafts and pre-releases are ignored by the updater.
+The language is picked from `LANGUAGE`, `LC_ALL`, `LC_MESSAGES` and `LANG`.
 
 ## Project structure
 
