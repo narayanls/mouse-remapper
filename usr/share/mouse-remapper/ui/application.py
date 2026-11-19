@@ -1,6 +1,6 @@
 from gi.repository import Adw, Gio, Gtk
 
-from core import APP_ID, APP_NAME, VERSION
+from core import APP_ID, APP_NAME, updater
 from core.i18n import _
 from .window import MainWindow
 
@@ -28,7 +28,7 @@ class MouseRemapperApp(Adw.Application):
         dialog = Adw.AboutDialog(
             application_name=APP_NAME,
             application_icon=APP_ID,
-            version=VERSION,
+            version=updater.display_version(updater.installed_version()),
             developer_name="narayanls",
             comments=_("Create keyboard macros on your mouse buttons."),
             license_type=Gtk.License.GPL_3_0,

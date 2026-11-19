@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mouse-remapper\n"
 "Report-Msgid-Bugs-To: https://github.com/narayanls/mouse-remapper/issues\n"
-"POT-Creation-Date: 2026-11-19 10:39-0300\n"
+"POT-Creation-Date: 2026-11-19 11:25-0300\n"
 "PO-Revision-Date: 2026-11-19 10:45-0300\n"
 "Last-Translator: narayanls\n"
 "Language-Team: Portuguese\n"
@@ -236,57 +236,57 @@ msgstr "Não foi possível ativar o serviço: {error}"
 msgid "Could not start the service: {error}"
 msgstr "Não foi possível iniciar o serviço: {error}"
 
-#: usr/share/mouse-remapper/core/updater.py:88
+#: usr/share/mouse-remapper/core/updater.py:120
 msgid "No release has been published yet."
 msgstr "Nenhum release foi publicado ainda."
 
-#: usr/share/mouse-remapper/core/updater.py:90
+#: usr/share/mouse-remapper/core/updater.py:122
 msgid "GitHub is limiting requests right now. Try again later."
 msgstr ""
 "O GitHub está limitando as requisições no momento. Tente novamente mais "
 "tarde."
 
-#: usr/share/mouse-remapper/core/updater.py:91
+#: usr/share/mouse-remapper/core/updater.py:123
 #, python-brace-format
 msgid "Could not check for updates (HTTP {code})."
 msgstr "Não foi possível verificar atualizações (HTTP {code})."
 
-#: usr/share/mouse-remapper/core/updater.py:94
+#: usr/share/mouse-remapper/core/updater.py:126
 msgid "Could not check for updates. Check your internet connection."
 msgstr ""
 "Não foi possível verificar atualizações. Verifique sua conexão com a "
 "internet."
 
-#: usr/share/mouse-remapper/core/updater.py:113
+#: usr/share/mouse-remapper/core/updater.py:148
 msgid "The latest release has no version number."
 msgstr "O último release não tem número de versão."
 
-#: usr/share/mouse-remapper/core/updater.py:138
+#: usr/share/mouse-remapper/core/updater.py:173
 msgid "This release has no package to install."
 msgstr "Este release não tem pacote para instalar."
 
-#: usr/share/mouse-remapper/core/updater.py:167
+#: usr/share/mouse-remapper/core/updater.py:202
 msgid "The download failed. Check your internet connection."
 msgstr "O download falhou. Verifique sua conexão com a internet."
 
-#: usr/share/mouse-remapper/core/updater.py:171
+#: usr/share/mouse-remapper/core/updater.py:206
 msgid "The download is incomplete. Try again."
 msgstr "O download ficou incompleto. Tente novamente."
 
-#: usr/share/mouse-remapper/core/updater.py:174
+#: usr/share/mouse-remapper/core/updater.py:209
 msgid "The downloaded file is corrupted (checksum mismatch). Try again."
 msgstr ""
 "O arquivo baixado está corrompido (checksum diferente). Tente novamente."
 
-#: usr/share/mouse-remapper/core/updater.py:183
+#: usr/share/mouse-remapper/core/updater.py:218
 msgid "Automatic installation requires pacman and pkexec."
 msgstr "A instalação automática requer pacman e pkexec."
 
-#: usr/share/mouse-remapper/core/updater.py:193
+#: usr/share/mouse-remapper/core/updater.py:228
 msgid "Authorization was not granted."
 msgstr "A autorização não foi concedida."
 
-#: usr/share/mouse-remapper/core/updater.py:196
+#: usr/share/mouse-remapper/core/updater.py:231
 msgid "pacman could not install the update:"
 msgstr "O pacman não conseguiu instalar a atualização:"
 
@@ -298,38 +298,29 @@ msgstr "Crie macros de teclado nos botões do mouse."
 msgid "Checking for updates…"
 msgstr "Verificando atualizações…"
 
-#: usr/share/mouse-remapper/ui/updates.py:55
+#: usr/share/mouse-remapper/ui/updates.py:56
 #, python-brace-format
 msgid "You have the latest version ({version})."
 msgstr "Você já tem a versão mais recente ({version})."
 
-#: usr/share/mouse-remapper/ui/updates.py:60
-#, python-brace-format
-msgid "Version {version} is available"
-msgstr "A versão {version} está disponível"
-
-#: usr/share/mouse-remapper/ui/updates.py:61
-msgid "Details"
-msgstr "Detalhes"
-
-#: usr/share/mouse-remapper/ui/updates.py:72
+#: usr/share/mouse-remapper/ui/updates.py:68
 #, python-brace-format
 msgid ""
 "{app} is running from the source code, so it can't update itself. Download "
 "the new version from GitHub."
 msgstr ""
-"O {app} está rodando pelo código-fonte e não pode se atualizar sozinho. "
-"Baixe a nova versão no GitHub."
+"O {app} está rodando pelo código-fonte e não pode se atualizar sozinho. Baixe"
+" a nova versão no GitHub."
 
-#: usr/share/mouse-remapper/ui/updates.py:74
+#: usr/share/mouse-remapper/ui/updates.py:70
 msgid ""
-"Automatic installation requires pacman (Arch Linux). Download the new "
-"version from GitHub."
+"Automatic installation requires pacman (Arch Linux). Download the new version"
+" from GitHub."
 msgstr ""
 "A instalação automática requer o pacman (Arch Linux). Baixe a nova versão no "
 "GitHub."
 
-#: usr/share/mouse-remapper/ui/updates.py:76
+#: usr/share/mouse-remapper/ui/updates.py:72
 msgid ""
 "Automatic installation requires pkexec (polkit). Download the new version "
 "from GitHub."
@@ -337,84 +328,84 @@ msgstr ""
 "A instalação automática requer o pkexec (polkit). Baixe a nova versão no "
 "GitHub."
 
-#: usr/share/mouse-remapper/ui/updates.py:78
+#: usr/share/mouse-remapper/ui/updates.py:74
 msgid "This release has no package to install. Download it from GitHub."
 msgstr "Este release não tem pacote para instalar. Baixe-o no GitHub."
 
-#: usr/share/mouse-remapper/ui/updates.py:81
+#: usr/share/mouse-remapper/ui/updates.py:80
 #, python-brace-format
 msgid "Version {new} is available. You have version {current}."
 msgstr "A versão {new} está disponível. Você tem a versão {current}."
 
-#: usr/share/mouse-remapper/ui/updates.py:86
+#: usr/share/mouse-remapper/ui/updates.py:85
 msgid "Update available"
 msgstr "Atualização disponível"
 
-#: usr/share/mouse-remapper/ui/updates.py:89
-#: usr/share/mouse-remapper/ui/updates.py:230
+#: usr/share/mouse-remapper/ui/updates.py:88
+#: usr/share/mouse-remapper/ui/updates.py:229
 msgid "Later"
 msgstr "Depois"
 
-#: usr/share/mouse-remapper/ui/updates.py:90
-#: usr/share/mouse-remapper/ui/updates.py:220
+#: usr/share/mouse-remapper/ui/updates.py:89
+#: usr/share/mouse-remapper/ui/updates.py:219
 msgid "View on GitHub"
 msgstr "Ver no GitHub"
 
-#: usr/share/mouse-remapper/ui/updates.py:92
+#: usr/share/mouse-remapper/ui/updates.py:91
 msgid "Update"
 msgstr "Atualizar"
 
-#: usr/share/mouse-remapper/ui/updates.py:108
+#: usr/share/mouse-remapper/ui/updates.py:107
 msgid "What's new"
 msgstr "Novidades"
 
-#: usr/share/mouse-remapper/ui/updates.py:134
+#: usr/share/mouse-remapper/ui/updates.py:133
 #, python-brace-format
 msgid "Updating {app}"
 msgstr "Atualizando o {app}"
 
-#: usr/share/mouse-remapper/ui/updates.py:135
+#: usr/share/mouse-remapper/ui/updates.py:134
 #, python-brace-format
 msgid "Downloading version {version}…"
 msgstr "Baixando a versão {version}…"
 
-#: usr/share/mouse-remapper/ui/updates.py:137
+#: usr/share/mouse-remapper/ui/updates.py:136
 #: usr/share/mouse-remapper/ui/window.py:813
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: usr/share/mouse-remapper/ui/updates.py:163
+#: usr/share/mouse-remapper/ui/updates.py:162
 #, python-brace-format
 msgid "Unexpected error: {error}"
 msgstr "Erro inesperado: {error}"
 
-#: usr/share/mouse-remapper/ui/updates.py:179
+#: usr/share/mouse-remapper/ui/updates.py:178
 msgid "Installing… Enter your password if the system asks for it."
 msgstr "Instalando… Digite sua senha se o sistema pedir."
 
-#: usr/share/mouse-remapper/ui/updates.py:215
+#: usr/share/mouse-remapper/ui/updates.py:214
 msgid "Update cancelled"
 msgstr "Atualização cancelada"
 
-#: usr/share/mouse-remapper/ui/updates.py:218
+#: usr/share/mouse-remapper/ui/updates.py:217
 msgid "Update failed"
 msgstr "A atualização falhou"
 
-#: usr/share/mouse-remapper/ui/updates.py:219
+#: usr/share/mouse-remapper/ui/updates.py:218
 msgid "Close"
 msgstr "Fechar"
 
-#: usr/share/mouse-remapper/ui/updates.py:227
+#: usr/share/mouse-remapper/ui/updates.py:226
 msgid "Update installed"
 msgstr "Atualização instalada"
 
-#: usr/share/mouse-remapper/ui/updates.py:228
+#: usr/share/mouse-remapper/ui/updates.py:227
 #, python-brace-format
 msgid "{app} {version} was installed. Restart the app to use the new version."
 msgstr ""
 "O {app} {version} foi instalado. Reinicie o app para usar a nova versão."
 
-#: usr/share/mouse-remapper/ui/updates.py:231
+#: usr/share/mouse-remapper/ui/updates.py:230
 msgid "Restart now"
 msgstr "Reiniciar agora"
 
@@ -484,8 +475,8 @@ msgstr "Teste"
 
 #: usr/share/mouse-remapper/ui/window.py:175
 msgid ""
-"You don't need to save to test. The test uses the macro in the editor and "
-"the ones in the list; then click “Save” to keep them always active."
+"You don't need to save to test. The test uses the macro in the editor and the"
+" ones in the list; then click “Save” to keep them always active."
 msgstr ""
 "Não é preciso salvar para testar. O teste usa a macro do editor e as da "
 "lista; depois, clique em “Salvar” para deixá-las sempre ativas."

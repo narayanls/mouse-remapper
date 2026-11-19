@@ -5,7 +5,8 @@ Fluxo:
      (rascunhos e pré-lançamentos são ignorados pela própria API).
   2. A versão do release vem do nome do pacote anexado
      (mouse-remapper-<pkgver>-<pkgrel>-any.pkg.tar.zst); se não houver pacote,
-     usa a tag (v1.2.0 ou 1.2.0). is_newer() compara com a versão instalada.
+     usa a tag (v1.2.0 ou 1.2.0). is_newer() compara com installed_version(),
+     que pergunta ao pacman o que está de fato instalado.
   3. download() baixa o pacote para ~/.cache/mouse-remapper/updates e confere o
      tamanho e o SHA-256 informados pelo GitHub.
   4. install() instala com "pkexec pacman -U", que pede a senha numa janela
@@ -49,7 +50,8 @@ class UpdateCancelled(Exception):
 
 @dataclass
 class Release:
-    version: str
+    version: str          # pkgver, para exibir (ex.: 1.2.0)
+    full_version: str     # pkgver-pkgrel quando há pacote, para comparar (ex.: 1.2.0-1)
     page_url: str
     notes: str
     asset_name: str | None = None
@@ -59,14 +61,44 @@ class Release:
 
 
 # ------------------------------------------------------------------ versões
-def parse_version(value: str) -> tuple[int, ...]:
-    """'v1.10.2' -> (1, 10, 2)."""
-    value = value.strip().lstrip("vV").split("-")[0]
-    return tuple(int(n) for n in re.findall(r"\d+", value))
+def parse_version(value: str) -> tuple[tuple[int, ...], int | None]:
+    """'v1.10.2' -> ((1, 10, 2), None); '1.10.2-3' -> ((1, 10, 2), 3)."""
+    value = value.strip().lstrip("vV").split(":")[-1]  # ignora a época do pacman
+    ver, _sep, rel = value.partition("-")
+    numbers = tuple(int(n) for n in re.findall(r"\d+", ver))
+    rel_match = re.match(r"\d+", rel)
+    return numbers, int(rel_match.group()) if rel_match else None
 
 
-def is_newer(remote: str, local: str = VERSION) -> bool:
-    return parse_version(remote) > parse_version(local)
+def is_newer(remote: str, local: str) -> bool:
+    """O pkgrel só desempata quando as duas versões o informam."""
+    (r_ver, r_rel), (l_ver, l_rel) = parse_version(remote), parse_version(local)
+    if r_ver != l_ver:
+        return r_ver > l_ver
+    return r_rel is not None and l_rel is not None and r_rel > l_rel
+
+
+def installed_version() -> str:
+    """Versão instalada segundo o pacman (ex.: '1.2.0-1').
+
+    É a fonte confiável: não depende do código já carregado na memória.
+    Rodando pelo código-fonte (ou sem pacman), usa a constante VERSION.
+    """
+    if install_support() != "source" and shutil.which("pacman"):
+        try:
+            result = subprocess.run(["pacman", "-Q", "mouse-remapper"],
+                                    capture_output=True, text=True, timeout=10)
+            parts = result.stdout.split()
+            if result.returncode == 0 and len(parts) == 2:
+                return parts[1]
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+    return VERSION
+
+
+def display_version(full: str) -> str:
+    """'1.2.0-1' -> '1.2.0' (o pkgrel só interessa para comparar)."""
+    return full.split(":")[-1].split("-")[0]
 
 
 # ------------------------------------------------------------------ consulta
@@ -93,8 +125,10 @@ def fetch_latest() -> Release:
         raise UpdateError(
             _("Could not check for updates. Check your internet connection.")) from exc
 
+    tag_version = str(data.get("tag_name") or "").lstrip("vV")
     release = Release(
-        version=str(data.get("tag_name") or "").lstrip("vV"),
+        version=tag_version,
+        full_version=tag_version,
         page_url=str(data.get("html_url") or RELEASES_PAGE),
         notes=str(data.get("body") or "").strip(),
     )
@@ -104,6 +138,7 @@ def fetch_latest() -> Release:
             continue
         digest = str(asset.get("digest") or "")
         release.version = match["pkgver"]
+        release.full_version = f'{match["pkgver"]}-{match["pkgrel"]}'
         release.asset_name = asset["name"]
         release.asset_url = asset.get("browser_download_url")
         release.asset_size = int(asset.get("size") or 0)

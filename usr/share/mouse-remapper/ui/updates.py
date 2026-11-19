@@ -6,7 +6,7 @@ import threading
 
 from gi.repository import Adw, GLib, Gtk, Pango
 
-from core import APP_NAME, VERSION, service, updater
+from core import APP_NAME, service, updater
 from core.i18n import _
 
 AUTO_CHECK_DELAY = 3  # segundos após abrir o app
@@ -30,18 +30,19 @@ class UpdateController:
             self.win.toast_overlay.add_toast(self._checking_toast)
 
         def worker():
+            installed = updater.installed_version()
             try:
                 release, error = updater.fetch_latest(), None
             except updater.UpdateError as exc:
                 release, error = None, str(exc)
-            GLib.idle_add(self._on_checked, release, error, manual)
+            GLib.idle_add(self._on_checked, release, installed, error, manual)
 
         threading.Thread(target=worker, daemon=True).start()
 
     def schedule_auto_check(self):
         GLib.timeout_add_seconds(AUTO_CHECK_DELAY, lambda: (self.check(manual=False), False)[1])
 
-    def _on_checked(self, release, error, manual):
+    def _on_checked(self, release, installed, error, manual):
         self.checking = False
         if self._checking_toast is not None:
             self._checking_toast.dismiss()
@@ -50,21 +51,16 @@ class UpdateController:
             if manual:  # na verificação automática, falhas ficam em silêncio
                 self.win.toast(error, 6)
             return False
-        if not updater.is_newer(release.version):
+        if not updater.is_newer(release.full_version, installed):
             if manual:
-                self.win.toast(_("You have the latest version ({version}).").format(version=VERSION))
+                self.win.toast(_("You have the latest version ({version}).").format(
+                    version=updater.display_version(installed)))
             return False
-        if manual:
-            self.show_release(release)
-        else:
-            toast = Adw.Toast(title=_("Version {version} is available").format(version=release.version),
-                              button_label=_("Details"), timeout=10)
-            toast.connect("button-clicked", lambda *_args: self.show_release(release))
-            self.win.toast_overlay.add_toast(toast)
+        self.show_release(release, installed)
         return False
 
     # ------------------------------------------------------- diálogo do release
-    def show_release(self, release: updater.Release):
+    def show_release(self, release: updater.Release, installed: str):
         support = updater.install_support()
         if support == "ok" and not release.asset_url:
             support = "asset"
@@ -78,8 +74,11 @@ class UpdateController:
             "asset": _("This release has no package to install. "
                        "Download it from GitHub."),
         }
+        new, current = release.version, updater.display_version(installed)
+        if new == current:  # só o pkgrel mudou: mostra a versão completa
+            new, current = release.full_version, installed
         body = _("Version {new} is available. You have version {current}.").format(
-            new=release.version, current=VERSION)
+            new=new, current=current)
         if support != "ok":
             body += "\n\n" + reasons[support]
 
