@@ -16,6 +16,7 @@ Mouse Remapper is a small GTK 4 / libadwaita app that turns any mouse button int
 - **Layout-aware labels**: key names follow your active keyboard layout (e.g. ABNT2 shows `Ç`).
 - **Gaming mouse friendly**: extra buttons exposed by a mouse's secondary "keyboard" interface are grouped under the same device.
 
+- **Built-in updates**: checks GitHub for new releases and installs them for you.
 - **English and Portuguese**: the language follows your system. Portuguese systems (Brazil or Portugal) get Portuguese; every other language gets English.
 
 ## How it works
@@ -32,6 +33,7 @@ Mouse Remapper is a small GTK 4 / libadwaita app that turns any mouse button int
 - PyGObject (`python-gobject`)
 - python-evdev
 - systemd (for the background service)
+- polkit (to install updates from within the app)
 - Your user in the `input` group
 
 ## Installation
@@ -69,6 +71,14 @@ Then **reboot**. Logging out or reopening the app is not enough for the new grou
 7. Click **Save**. The background service is enabled and your macros stay active, including after a reboot.
 
 > Mapping the left mouse button is allowed, but it will stop clicking while the macro is active.
+
+## Updates
+
+Mouse Remapper checks for a new release on GitHub a few seconds after it opens. You can also check at any time from the menu, with **Check for updates**.
+
+When a new version is available, the app shows what's new and offers to install it. The package is downloaded from the GitHub release and verified against the SHA-256 checksum that GitHub publishes. It is then installed with `pacman`, and the system asks for your password. After the update, the background service is restarted automatically and the app offers to restart itself.
+
+The check only contacts `api.github.com` and sends no personal data. If you run the app from the source code, it tells you about new versions but doesn't install them.
 
 ## Configuration
 
@@ -126,6 +136,16 @@ The new language is picked up automatically once the package is rebuilt; there i
 
 **Running from the repository**: run `po/build-mo.sh` once to compile the translations into `usr/share/locale/`, then `python3 usr/share/mouse-remapper/main.py`. The package build compiles them automatically.
 
+## Publishing a release
+
+The updater compares the installed version with the version in the package file name, so releases must follow these steps:
+
+1. Bump `pkgver` in `pkgbuild/PKGBUILD` (it is also written into the installed app automatically).
+2. Build the package with `makepkg` in the `pkgbuild` folder.
+3. Create a GitHub release with the tag `v<pkgver>` (e.g. `v1.2.0`) and attach the `mouse-remapper-<pkgver>-<pkgrel>-any.pkg.tar.zst` file. The release notes are shown in the update dialog.
+
+Drafts and pre-releases are ignored by the updater.
+
 ## Project structure
 
 ```
@@ -136,7 +156,7 @@ usr/
     ├── icons/                      app icon
     └── mouse-remapper/
         ├── main.py                 entry point (GUI or --daemon)
-        ├── core/                   config, devices, remapping engine, daemon, systemd control, i18n
+        ├── core/                   config, devices, remapping engine, daemon, systemd, i18n, updater
         └── ui/                     GTK 4 / libadwaita interface
 po/                                 translations (gettext)
 pkgbuild/                           Arch Linux packaging

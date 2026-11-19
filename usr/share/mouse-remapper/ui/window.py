@@ -10,6 +10,7 @@ from core.i18n import _, ngettext
 from core.detect import ButtonDetector
 from core.engine import Remapper
 from . import labels
+from .updates import UpdateController
 
 CSS = b"""
 .editor-card { padding: 18px; }
@@ -64,6 +65,8 @@ class MainWindow(Adw.ApplicationWindow):
         self._updating = False
         self._force_close = False
 
+        self.updates = UpdateController(self)
+
         self._load_css()
         self._build_ui()
         self._setup_actions()
@@ -73,6 +76,7 @@ class MainWindow(Adw.ApplicationWindow):
         self._update_editor()
 
         self.connect("close-request", self._on_close_request)
+        self.updates.schedule_auto_check()
 
     # ================================================================ UI
     def _load_css(self):
@@ -96,6 +100,7 @@ class MainWindow(Adw.ApplicationWindow):
         menu = Gio.Menu()
         menu.append(_("Scan for mice again"), "win.refresh")
         menu.append(_("Disable background service"), "win.disable-service")
+        menu.append(_("Check for updates"), "win.check-updates")
         menu.append(_("About {app}").format(app=APP_NAME), "app.about")
         header.pack_end(Gtk.MenuButton(icon_name="open-menu-symbolic", menu_model=menu,
                                        tooltip_text=_("Main menu")))
@@ -307,6 +312,10 @@ class MainWindow(Adw.ApplicationWindow):
         disable = Gio.SimpleAction.new("disable-service", None)
         disable.connect("activate", self._on_disable_service)
         self.add_action(disable)
+
+        check_updates = Gio.SimpleAction.new("check-updates", None)
+        check_updates.connect("activate", lambda *_args: self.updates.check(manual=True))
+        self.add_action(check_updates)
 
     # ============================================================ helpers
     def toast(self, msg: str, timeout: int = 3):
@@ -816,6 +825,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     def _on_close_response(self, _dialog, response):
         if response == "cancel":
+            self.updates.restart_on_close = False
             return
         if response == "save" and not self.save():
             return
@@ -829,3 +839,4 @@ class MainWindow(Adw.ApplicationWindow):
             self._stop_test()
         while self._pause_count:
             self._resume_service()
+        self.updates.relaunch_if_requested()

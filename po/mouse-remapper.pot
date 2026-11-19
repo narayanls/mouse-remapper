@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mouse-remapper\n"
 "Report-Msgid-Bugs-To: https://github.com/narayanls/mouse-remapper/issues\n"
-"POT-Creation-Date: 2026-11-19 10:14-0300\n"
+"POT-Creation-Date: 2026-11-19 10:39-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -230,290 +230,460 @@ msgstr ""
 msgid "Button that sends “{key}”"
 msgstr ""
 
-#: usr/share/mouse-remapper/core/service.py:48
+#: usr/share/mouse-remapper/core/service.py:55
 #, python-brace-format
 msgid "Could not enable the service: {error}"
 msgstr ""
 
-#: usr/share/mouse-remapper/core/service.py:52
+#: usr/share/mouse-remapper/core/service.py:59
 #, python-brace-format
 msgid "Could not start the service: {error}"
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:88
+msgid "No release has been published yet."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:90
+msgid "GitHub is limiting requests right now. Try again later."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:91
+#, python-brace-format
+msgid "Could not check for updates (HTTP {code})."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:94
+msgid "Could not check for updates. Check your internet connection."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:113
+msgid "The latest release has no version number."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:138
+msgid "This release has no package to install."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:167
+msgid "The download failed. Check your internet connection."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:171
+msgid "The download is incomplete. Try again."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:174
+msgid "The downloaded file is corrupted (checksum mismatch). Try again."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:183
+msgid "Automatic installation requires pacman and pkexec."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:193
+msgid "Authorization was not granted."
+msgstr ""
+
+#: usr/share/mouse-remapper/core/updater.py:196
+msgid "pacman could not install the update:"
 msgstr ""
 
 #: usr/share/mouse-remapper/ui/application.py:33
 msgid "Create keyboard macros on your mouse buttons."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:92
-#: usr/share/mouse-remapper/ui/window.py:97
+#: usr/share/mouse-remapper/ui/updates.py:29
+msgid "Checking for updates…"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:55
+#, python-brace-format
+msgid "You have the latest version ({version})."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:60
+#, python-brace-format
+msgid "Version {version} is available"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:61
+msgid "Details"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:72
+#, python-brace-format
+msgid ""
+"{app} is running from the source code, so it can't update itself. Download "
+"the new version from GitHub."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:74
+msgid ""
+"Automatic installation requires pacman (Arch Linux). Download the new "
+"version from GitHub."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:76
+msgid ""
+"Automatic installation requires pkexec (polkit). Download the new version "
+"from GitHub."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:78
+msgid "This release has no package to install. Download it from GitHub."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:81
+#, python-brace-format
+msgid "Version {new} is available. You have version {current}."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:86
+msgid "Update available"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:89
+#: usr/share/mouse-remapper/ui/updates.py:230
+msgid "Later"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:90
+#: usr/share/mouse-remapper/ui/updates.py:220
+msgid "View on GitHub"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:92
+msgid "Update"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:108
+msgid "What's new"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:134
+#, python-brace-format
+msgid "Updating {app}"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:135
+#, python-brace-format
+msgid "Downloading version {version}…"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:137
+#: usr/share/mouse-remapper/ui/window.py:813
+msgid "Cancel"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:163
+#, python-brace-format
+msgid "Unexpected error: {error}"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:179
+msgid "Installing… Enter your password if the system asks for it."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:215
+msgid "Update cancelled"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:218
+msgid "Update failed"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:219
+msgid "Close"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:227
+msgid "Update installed"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:228
+#, python-brace-format
+msgid "{app} {version} was installed. Restart the app to use the new version."
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/updates.py:231
+msgid "Restart now"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/window.py:96
+#: usr/share/mouse-remapper/ui/window.py:101
 msgid "Scan for mice again"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:98
+#: usr/share/mouse-remapper/ui/window.py:102
 msgid "Disable background service"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:99
+#: usr/share/mouse-remapper/ui/window.py:103
+msgid "Check for updates"
+msgstr ""
+
+#: usr/share/mouse-remapper/ui/window.py:104
 #, python-brace-format
 msgid "About {app}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:101
+#: usr/share/mouse-remapper/ui/window.py:106
 msgid "Main menu"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:104
-#: usr/share/mouse-remapper/ui/window.py:356
+#: usr/share/mouse-remapper/ui/window.py:109
+#: usr/share/mouse-remapper/ui/window.py:365
 msgid "Copy command"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:119
+#: usr/share/mouse-remapper/ui/window.py:124
 msgid "Device"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:120
+#: usr/share/mouse-remapper/ui/window.py:125
 msgid "Mouse"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:128
+#: usr/share/mouse-remapper/ui/window.py:133
 msgid "New macro"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:129
+#: usr/share/mouse-remapper/ui/window.py:134
 msgid "Choose the keys on one side and the mouse button on the other."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:142
+#: usr/share/mouse-remapper/ui/window.py:147
 msgid "The mouse button sends these keys"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:149
-#: usr/share/mouse-remapper/ui/window.py:458
+#: usr/share/mouse-remapper/ui/window.py:154
+#: usr/share/mouse-remapper/ui/window.py:467
 msgid "Add mapping"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:158
+#: usr/share/mouse-remapper/ui/window.py:163
 msgid "Mappings for this mouse"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:161
+#: usr/share/mouse-remapper/ui/window.py:166
 msgid "No mappings yet."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:169
+#: usr/share/mouse-remapper/ui/window.py:174
 msgid "Testing"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:170
+#: usr/share/mouse-remapper/ui/window.py:175
 msgid ""
 "You don't need to save to test. The test uses the macro in the editor and "
 "the ones in the list; then click “Save” to keep them always active."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:174
+#: usr/share/mouse-remapper/ui/window.py:179
 msgid "Test area — the resulting keys appear here"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:175
-#: usr/share/mouse-remapper/ui/window.py:710
+#: usr/share/mouse-remapper/ui/window.py:180
+#: usr/share/mouse-remapper/ui/window.py:719
 msgid "Keys received: —"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:179
-#: usr/share/mouse-remapper/ui/window.py:676
+#: usr/share/mouse-remapper/ui/window.py:184
+#: usr/share/mouse-remapper/ui/window.py:685
 msgid "Test"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:181
+#: usr/share/mouse-remapper/ui/window.py:186
 msgid "Turns the macros on temporarily, without saving"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:196
-#: usr/share/mouse-remapper/ui/window.py:806
+#: usr/share/mouse-remapper/ui/window.py:201
+#: usr/share/mouse-remapper/ui/window.py:815
 msgid "Save"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:198
+#: usr/share/mouse-remapper/ui/window.py:203
 msgid "Saves and keeps the macros active after restarting the computer"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:233
+#: usr/share/mouse-remapper/ui/window.py:238
 msgid "Keyboard keys"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:239
-#: usr/share/mouse-remapper/ui/window.py:493
+#: usr/share/mouse-remapper/ui/window.py:244
+#: usr/share/mouse-remapper/ui/window.py:502
 msgid "Record keys"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:242
+#: usr/share/mouse-remapper/ui/window.py:247
 msgid "Clear keys"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:250
+#: usr/share/mouse-remapper/ui/window.py:255
 msgid "Click Record and press the combination (e.g. Ctrl + C)."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:257
+#: usr/share/mouse-remapper/ui/window.py:262
 msgid "Sequence: each recording adds a step"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:259
+#: usr/share/mouse-remapper/ui/window.py:264
 msgid "E.g. Ctrl + C  →  Alt + Tab  →  Ctrl + V, sent in order on click"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:262
+#: usr/share/mouse-remapper/ui/window.py:267
 msgid "Pick a key from the list"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:270
+#: usr/share/mouse-remapper/ui/window.py:275
 msgid "Add to combination"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:275
+#: usr/share/mouse-remapper/ui/window.py:280
 msgid "Useful for keys the system intercepts, such as Super"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:280
+#: usr/share/mouse-remapper/ui/window.py:285
 msgid "Mouse button"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:285
-#: usr/share/mouse-remapper/ui/window.py:595
+#: usr/share/mouse-remapper/ui/window.py:290
+#: usr/share/mouse-remapper/ui/window.py:604
 msgid "Detect button"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:290
+#: usr/share/mouse-remapper/ui/window.py:295
 msgid "Click Detect and press the button on the mouse."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:296
+#: usr/share/mouse-remapper/ui/window.py:301
 msgid "Or pick from the list…"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:319
+#: usr/share/mouse-remapper/ui/window.py:328
 msgid "Unsaved changes"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:328
+#: usr/share/mouse-remapper/ui/window.py:337
 msgid "Service paused during test/detection"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:330
+#: usr/share/mouse-remapper/ui/window.py:339
 msgid "Macros active in the background"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:332
+#: usr/share/mouse-remapper/ui/window.py:341
 msgid "Background service inactive"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:358
+#: usr/share/mouse-remapper/ui/window.py:367
 msgid ""
 "Permission granted! Restart the computer so Mouse Remapper can access the "
 "mouse."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:363
+#: usr/share/mouse-remapper/ui/window.py:372
 #, python-brace-format
 msgid ""
 "No permission to read the mouse. Run the command below and then RESTART the "
 "computer (closing the app is not enough): {command}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:368
+#: usr/share/mouse-remapper/ui/window.py:377
 #, python-brace-format
 msgid "The uinput module is not loaded. Run: {command}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:373
+#: usr/share/mouse-remapper/ui/window.py:382
 #, python-brace-format
 msgid "No permission on /dev/uinput. Reinstall the package or run: {command}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:382
+#: usr/share/mouse-remapper/ui/window.py:391
 msgid "Command copied. Run it in the terminal and restart the computer."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:384
+#: usr/share/mouse-remapper/ui/window.py:393
 msgid "Command copied"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:404
+#: usr/share/mouse-remapper/ui/window.py:413
 #, python-brace-format
 msgid "{name} (disconnected)"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:424
+#: usr/share/mouse-remapper/ui/window.py:433
 msgid "No mouse found"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:436
+#: usr/share/mouse-remapper/ui/window.py:445
 msgid "Disconnected"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:450
+#: usr/share/mouse-remapper/ui/window.py:459
 msgid "No keys"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:453
+#: usr/share/mouse-remapper/ui/window.py:462
 msgid "No button"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:458
+#: usr/share/mouse-remapper/ui/window.py:467
 msgid "Update mapping"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:478
+#: usr/share/mouse-remapper/ui/window.py:487
 msgid "Press the keys… (cancel)"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:513
+#: usr/share/mouse-remapper/ui/window.py:522
 #, python-brace-format
 msgid "Keys received: {keys}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:566
+#: usr/share/mouse-remapper/ui/window.py:575
 msgid "Connect and select a mouse first"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:571
+#: usr/share/mouse-remapper/ui/window.py:580
 msgid "Press a mouse button… (cancel)"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:608
+#: usr/share/mouse-remapper/ui/window.py:617
 msgid "Warning: the left button will stop clicking while the macro is active."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:621
+#: usr/share/mouse-remapper/ui/window.py:630
 #, python-brace-format
 msgid "Sends: {keys}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:626
+#: usr/share/mouse-remapper/ui/window.py:635
 msgid "Edit"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:630
+#: usr/share/mouse-remapper/ui/window.py:639
 msgid "Remove"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:638
+#: usr/share/mouse-remapper/ui/window.py:647
 msgid "No macros added yet. Build one above and click “Add mapping”."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:676
+#: usr/share/mouse-remapper/ui/window.py:685
 msgid "Stop test"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:694
+#: usr/share/mouse-remapper/ui/window.py:703
 msgid "Choose the keys and the mouse button before testing"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:698
+#: usr/share/mouse-remapper/ui/window.py:707
 msgid "The selected mouse is disconnected"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:725
+#: usr/share/mouse-remapper/ui/window.py:734
 #, python-brace-format
 msgid ""
 "● Test active with {n} macro. Use the mouse button with the cursor in the "
@@ -524,44 +694,40 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: usr/share/mouse-remapper/ui/window.py:775
+#: usr/share/mouse-remapper/ui/window.py:784
 #, python-brace-format
 msgid "Error while saving: {error}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:782
+#: usr/share/mouse-remapper/ui/window.py:791
 #, python-brace-format
 msgid "Saved, but there was a problem with the service. {details}"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:784
+#: usr/share/mouse-remapper/ui/window.py:793
 msgid "Saved! The macros stay active even after a restart."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:786
+#: usr/share/mouse-remapper/ui/window.py:795
 msgid "Saved. With no mappings, the service was disabled."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:794
+#: usr/share/mouse-remapper/ui/window.py:803
 msgid "Service disabled. Click Save to turn it back on."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:796
+#: usr/share/mouse-remapper/ui/window.py:805
 msgid "Could not disable the service."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:802
+#: usr/share/mouse-remapper/ui/window.py:811
 msgid "Save changes?"
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:803
+#: usr/share/mouse-remapper/ui/window.py:812
 msgid "Some mappings have not been saved yet."
 msgstr ""
 
-#: usr/share/mouse-remapper/ui/window.py:804
-msgid "Cancel"
-msgstr ""
-
-#: usr/share/mouse-remapper/ui/window.py:805
+#: usr/share/mouse-remapper/ui/window.py:814
 msgid "Discard"
 msgstr ""

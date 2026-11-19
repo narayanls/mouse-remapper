@@ -35,6 +35,13 @@ def stop() -> bool:
     return bool(r) and r.returncode == 0
 
 
+def restart_if_active() -> None:
+    """Após uma atualização, o serviço precisa reiniciar para carregar o código novo."""
+    if is_active():
+        _ctl("daemon-reload")
+        _ctl("restart", SERVICE)
+
+
 def apply(has_mappings: bool) -> tuple[bool, str]:
     """Ativa (e reinicia) o serviço para carregar a nova configuração.
 
