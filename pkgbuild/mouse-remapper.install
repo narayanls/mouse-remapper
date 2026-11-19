@@ -1,0 +1,27 @@
+_reload_uinput() {
+    modprobe uinput 2>/dev/null || true
+    udevadm control --reload 2>/dev/null || true
+    udevadm trigger --sysname-match=uinput 2>/dev/null || true
+}
+
+post_install() {
+    _reload_uinput
+    cat <<'MSG'
+
+==> Mouse Remapper instalado.
+==> Para ler o mouse, seu usuário precisa estar no grupo "input":
+==>     sudo usermod -aG input $USER
+==> Depois, REINICIE o computador (fechar e abrir o app não é suficiente).
+==> As macros são salvas em ~/.config/mouse-remapper/config.json e aplicadas
+==> pelo serviço de usuário "mouse-remapper.service" (ativado ao clicar em Salvar).
+
+MSG
+}
+
+post_upgrade() {
+    _reload_uinput
+}
+
+pre_remove() {
+    echo "==> Para desativar o serviço do seu usuário: systemctl --user disable --now mouse-remapper.service"
+}

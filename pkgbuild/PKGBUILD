@@ -1,0 +1,38 @@
+# Maintainer: narayanls
+pkgname=mouse-remapper
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Create macros from keyboard to mouse buttons"
+arch=('any')
+url="https://github.com/narayanls/Mouse-Remapper"
+license=('GPL-3.0-or-later')
+depends=('python' 'python-gobject' 'gtk4' 'libadwaita' 'python-evdev' 'systemd')
+install=mouse-remapper.install
+# Sem repositório ainda: os arquivos são lidos da pasta local (../usr).
+source=()
+
+package() {
+    local _src="$startdir/../usr"
+    local _app="$pkgdir/usr/share/mouse-remapper"
+
+    install -Dm755 "$_src/bin/mouse-remapper" "$pkgdir/usr/bin/mouse-remapper"
+
+    # Código Python (ignora __pycache__)
+    cd "$_src/share/mouse-remapper"
+    while IFS= read -r -d '' _f; do
+        install -Dm644 "$_f" "$_app/${_f#./}"
+    done < <(find . -type f -name '*.py' -not -path '*/__pycache__/*' -print0)
+    python -m compileall -q -d /usr/share/mouse-remapper "$_app"
+
+    install -Dm644 "$_src/share/applications/io.github.narayanls.MouseRemapper.desktop" \
+        "$pkgdir/usr/share/applications/io.github.narayanls.MouseRemapper.desktop"
+    install -Dm644 "$_src/share/icons/hicolor/scalable/apps/io.github.narayanls.MouseRemapper.svg" \
+        "$pkgdir/usr/share/icons/hicolor/scalable/apps/io.github.narayanls.MouseRemapper.svg"
+
+    install -Dm644 "$_src/lib/systemd/user/mouse-remapper.service" \
+        "$pkgdir/usr/lib/systemd/user/mouse-remapper.service"
+    install -Dm644 "$_src/lib/udev/rules.d/70-mouse-remapper.rules" \
+        "$pkgdir/usr/lib/udev/rules.d/70-mouse-remapper.rules"
+    install -Dm644 "$_src/lib/modules-load.d/mouse-remapper.conf" \
+        "$pkgdir/usr/lib/modules-load.d/mouse-remapper.conf"
+}

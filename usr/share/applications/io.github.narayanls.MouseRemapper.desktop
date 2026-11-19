@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Mouse Remapper
+GenericName=Macros do mouse
+Comment=Crie macros de teclado nos botões do mouse
+Exec=mouse-remapper
+Icon=io.github.narayanls.MouseRemapper
+Terminal=false
+Categories=GTK;Settings;HardwareSettings;
+Keywords=mouse;macro;botão;botao;remap;atalho;teclado;
+StartupNotify=true
