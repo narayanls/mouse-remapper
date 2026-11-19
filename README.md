@@ -4,6 +4,9 @@ Map keyboard shortcuts and key sequences to your mouse buttons on Linux.
 
 Mouse Remapper is a small GTK 4 / libadwaita app that turns any mouse button into a keyboard macro, such as `Ctrl + C` on a side button or `Ctrl + C → Alt + Tab → Ctrl + V` on another. It works at the kernel input level (evdev/uinput), so it behaves the same on **Wayland and X11** and in any desktop environment.
 
+<img width="750" height="929" alt="satty-20261119-114529" src="https://github.com/user-attachments/assets/e9a7a8f1-af5c-49f1-b38c-8e034d4e7c6d" />
+
+
 ## Features
 
 - **Key combinations**: assign a shortcut like `Ctrl + Shift + T` to a button. While you hold the button, the keys stay pressed, so you can also use a button as a held modifier (e.g. Shift).
