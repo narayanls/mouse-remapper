@@ -7,6 +7,8 @@ import time
 import evdev
 from evdev import ecodes as e
 
+from .i18n import _
+
 
 class ButtonDetector:
     def __init__(self, paths, callback, timeout: float = 15.0):
@@ -31,16 +33,16 @@ class ButtonDetector:
                 try:
                     devs.append(evdev.InputDevice(path))
                 except OSError as exc:
-                    error = f"Sem acesso a {path} ({exc.strerror})."
+                    error = _("No access to {path} ({error}).").format(path=path, error=exc.strerror)
             if not devs:
-                raise RuntimeError(error or "Mouse não encontrado.")
+                raise RuntimeError(error or _("Mouse not found."))
             error = None
             deadline = time.monotonic() + self.timeout
             while code is None and not self._stop.is_set():
                 if time.monotonic() > deadline:
-                    error = "Tempo esgotado: nenhum botão foi pressionado."
+                    error = _("Timed out: no button was pressed.")
                     break
-                ready, _, _ = select.select(devs, [], [], 0.25)
+                ready, _w, _x = select.select(devs, [], [], 0.25)
                 for dev in ready:
                     try:
                         for ev in dev.read():

@@ -16,7 +16,7 @@ Mouse Remapper is a small GTK 4 / libadwaita app that turns any mouse button int
 - **Layout-aware labels**: key names follow your active keyboard layout (e.g. ABNT2 shows `Ç`).
 - **Gaming mouse friendly**: extra buttons exposed by a mouse's secondary "keyboard" interface are grouped under the same device.
 
-> **Note:** the interface is currently in Brazilian Portuguese.
+- **English and Portuguese**: the language follows your system. Portuguese systems (Brazil or Portugal) get Portuguese; every other language gets English.
 
 ## How it works
 
@@ -101,6 +101,31 @@ In this example, `275` is `BTN_SIDE` mapped to `Ctrl + C`, and `276` is `BTN_EXT
 | "Device in use by another program" | Another remapper (e.g. input-remapper, Solaar rules) may be grabbing the mouse. Stop it and try again. |
 | Macros don't work after closing the app | Check the service with `systemctl --user status mouse-remapper.service` and click **Save** again. |
 
+## Translations
+
+The interface uses [gettext](https://www.gnu.org/software/gettext/). Strings in the source code are in English, and translations live in `po/`:
+
+- `po/mouse-remapper.pot`: template with every translatable string
+- `po/pt.po`: Portuguese (used for both `pt_BR` and `pt_PT`)
+
+The language is picked from `LANGUAGE`, `LC_ALL`, `LC_MESSAGES` and `LANG`, in the same order gettext uses. To try another language without changing your system:
+
+```bash
+LANGUAGE=en mouse-remapper   # force English
+LANGUAGE=pt mouse-remapper   # force Portuguese
+```
+
+**Adding a language** (requires `gettext`):
+
+1. Create the file from the template, e.g. for Spanish: `msginit -i po/mouse-remapper.pot -o po/es.po -l es`
+2. Translate the `msgstr` entries.
+
+The new language is picked up automatically once the package is rebuilt; there is nothing to change in the code.
+
+**After changing strings in the code**, run `po/update-po.sh` to refresh the template and merge new strings into every `.po` file.
+
+**Running from the repository**: run `po/build-mo.sh` once to compile the translations into `usr/share/locale/`, then `python3 usr/share/mouse-remapper/main.py`. The package build compiles them automatically.
+
 ## Project structure
 
 ```
@@ -111,8 +136,9 @@ usr/
     ├── icons/                      app icon
     └── mouse-remapper/
         ├── main.py                 entry point (GUI or --daemon)
-        ├── core/                   config, devices, remapping engine, daemon, systemd control
+        ├── core/                   config, devices, remapping engine, daemon, systemd control, i18n
         └── ui/                     GTK 4 / libadwaita interface
+po/                                 translations (gettext)
 pkgbuild/                           Arch Linux packaging
 ```
 

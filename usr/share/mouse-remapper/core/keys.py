@@ -2,6 +2,8 @@
 
 from evdev import ecodes as e
 
+from .i18n import _
+
 # Ordem canônica em que os modificadores são pressionados/exibidos.
 MODIFIER_ORDER = [
     e.KEY_LEFTCTRL, e.KEY_RIGHTCTRL,
@@ -13,26 +15,26 @@ MODIFIERS = set(MODIFIER_ORDER)
 
 # Rótulos fixos (não dependem do layout do teclado).
 FRIENDLY = {
-    e.KEY_LEFTCTRL: "Ctrl", e.KEY_RIGHTCTRL: "Ctrl Direito",
-    e.KEY_LEFTSHIFT: "Shift", e.KEY_RIGHTSHIFT: "Shift Direito",
+    e.KEY_LEFTCTRL: "Ctrl", e.KEY_RIGHTCTRL: _("Right Ctrl"),
+    e.KEY_LEFTSHIFT: "Shift", e.KEY_RIGHTSHIFT: _("Right Shift"),
     e.KEY_LEFTALT: "Alt", e.KEY_RIGHTALT: "AltGr",
-    e.KEY_LEFTMETA: "Super", e.KEY_RIGHTMETA: "Super Direito",
+    e.KEY_LEFTMETA: "Super", e.KEY_RIGHTMETA: _("Right Super"),
     e.KEY_ESC: "Esc", e.KEY_ENTER: "Enter", e.KEY_KPENTER: "Enter (Num)",
-    e.KEY_SPACE: "Espaço", e.KEY_BACKSPACE: "Backspace", e.KEY_TAB: "Tab",
+    e.KEY_SPACE: _("Space"), e.KEY_BACKSPACE: "Backspace", e.KEY_TAB: "Tab",
     e.KEY_CAPSLOCK: "Caps Lock", e.KEY_NUMLOCK: "Num Lock", e.KEY_SCROLLLOCK: "Scroll Lock",
     e.KEY_INSERT: "Insert", e.KEY_DELETE: "Delete", e.KEY_HOME: "Home", e.KEY_END: "End",
     e.KEY_PAGEUP: "Page Up", e.KEY_PAGEDOWN: "Page Down",
-    e.KEY_UP: "Seta ↑", e.KEY_DOWN: "Seta ↓", e.KEY_LEFT: "Seta ←", e.KEY_RIGHT: "Seta →",
+    e.KEY_UP: _("Arrow ↑"), e.KEY_DOWN: _("Arrow ↓"), e.KEY_LEFT: _("Arrow ←"), e.KEY_RIGHT: _("Arrow →"),
     e.KEY_SYSRQ: "Print Screen", e.KEY_PAUSE: "Pause", e.KEY_COMPOSE: "Menu",
-    e.KEY_MUTE: "Mudo", e.KEY_VOLUMEDOWN: "Volume −", e.KEY_VOLUMEUP: "Volume +",
-    e.KEY_PLAYPAUSE: "Play/Pause", e.KEY_STOPCD: "Parar mídia",
-    e.KEY_NEXTSONG: "Próxima faixa", e.KEY_PREVIOUSSONG: "Faixa anterior",
-    e.KEY_BRIGHTNESSUP: "Brilho +", e.KEY_BRIGHTNESSDOWN: "Brilho −",
-    e.KEY_CALC: "Calculadora", e.KEY_WWW: "Navegador", e.KEY_MAIL: "E-mail",
-    e.KEY_HOMEPAGE: "Página inicial", e.KEY_BACK: "Voltar (navegador)",
-    e.KEY_FORWARD: "Avançar (navegador)", e.KEY_REFRESH: "Atualizar (navegador)",
+    e.KEY_MUTE: _("Mute"), e.KEY_VOLUMEDOWN: "Volume −", e.KEY_VOLUMEUP: "Volume +",
+    e.KEY_PLAYPAUSE: "Play/Pause", e.KEY_STOPCD: _("Stop media"),
+    e.KEY_NEXTSONG: _("Next track"), e.KEY_PREVIOUSSONG: _("Previous track"),
+    e.KEY_BRIGHTNESSUP: _("Brightness +"), e.KEY_BRIGHTNESSDOWN: _("Brightness −"),
+    e.KEY_CALC: _("Calculator"), e.KEY_WWW: _("Browser"), e.KEY_MAIL: _("Email"),
+    e.KEY_HOMEPAGE: _("Home page"), e.KEY_BACK: _("Back (browser)"),
+    e.KEY_FORWARD: _("Forward (browser)"), e.KEY_REFRESH: _("Refresh (browser)"),
     e.KEY_KPPLUS: "Num +", e.KEY_KPMINUS: "Num −", e.KEY_KPASTERISK: "Num *",
-    e.KEY_KPSLASH: "Num /", e.KEY_KPDOT: "Num ,",
+    e.KEY_KPSLASH: "Num /", e.KEY_KPDOT: _("Num ."),
 }
 
 # Rótulos de reserva para pontuação (posição do layout americano).
@@ -41,18 +43,18 @@ PUNCTUATION = {
     e.KEY_MINUS: "-", e.KEY_EQUAL: "=", e.KEY_LEFTBRACE: "[", e.KEY_RIGHTBRACE: "]",
     e.KEY_SEMICOLON: ";", e.KEY_APOSTROPHE: "'", e.KEY_GRAVE: "`",
     e.KEY_BACKSLASH: "\\", e.KEY_COMMA: ",", e.KEY_DOT: ".", e.KEY_SLASH: "/",
-    e.KEY_102ND: "\\ (tecla ISO)", e.KEY_RO: "/ (ABNT)",
+    e.KEY_102ND: _("\\ (ISO key)"), e.KEY_RO: _("/ (ABNT key)"),
 }
 
 BUTTON_NAMES = {
-    e.BTN_LEFT: "Botão esquerdo",
-    e.BTN_RIGHT: "Botão direito",
-    e.BTN_MIDDLE: "Botão do meio (roda)",
-    e.BTN_SIDE: "Lateral – Voltar",
-    e.BTN_EXTRA: "Lateral – Avançar",
-    e.BTN_FORWARD: "Botão Avançar",
-    e.BTN_BACK: "Botão Voltar",
-    e.BTN_TASK: "Botão extra (Task)",
+    e.BTN_LEFT: _("Left button"),
+    e.BTN_RIGHT: _("Right button"),
+    e.BTN_MIDDLE: _("Middle button (wheel)"),
+    e.BTN_SIDE: _("Side – Back"),
+    e.BTN_EXTRA: _("Side – Forward"),
+    e.BTN_FORWARD: _("Forward button"),
+    e.BTN_BACK: _("Back button"),
+    e.BTN_TASK: _("Extra button (Task)"),
 }
 COMMON_BUTTONS = list(BUTTON_NAMES)
 
@@ -79,7 +81,7 @@ def key_label(code: int) -> str:
         return PUNCTUATION[code]
     name = raw_name(code)
     if not name:
-        return f"Código {code}"
+        return _("Code {code}").format(code=code)
     if name.startswith("BTN_"):
         return button_label(code)
     name = name[4:]  # remove "KEY_"
@@ -97,12 +99,12 @@ def button_label(code: int) -> str:
     if name and name.startswith("BTN_"):
         suffix = name[4:]
         if suffix.isdigit():
-            return f"Botão {suffix}"
-        return f"Botão {suffix.replace('_', ' ').title()}"
+            return _("Button {name}").format(name=suffix)
+        return _("Button {name}").format(name=suffix.replace("_", " ").title())
     if name and name.startswith("KEY_"):
         # Alguns mouses "gamer" enviam teclas de teclado nos botões extras.
-        return f"Botão que envia “{key_label(code)}”"
-    return f"Botão {code}"
+        return _("Button that sends “{key}”").format(key=key_label(code))
+    return _("Button {name}").format(name=code)
 
 
 def sort_combo(codes) -> list[int]:

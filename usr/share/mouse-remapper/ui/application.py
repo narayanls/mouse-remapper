@@ -1,6 +1,7 @@
 from gi.repository import Adw, Gio, Gtk
 
 from core import APP_ID, APP_NAME, VERSION
+from core.i18n import _
 from .window import MainWindow
 
 
@@ -15,7 +16,7 @@ class MouseRemapperApp(Adw.Application):
         self.add_action(about)
 
         quit_action = Gio.SimpleAction.new("quit", None)
-        quit_action.connect("activate", lambda *_: self.props.active_window and self.props.active_window.close())
+        quit_action.connect("activate", lambda *_args: self.props.active_window and self.props.active_window.close())
         self.add_action(quit_action)
         self.set_accels_for_action("app.quit", ["<Control>q"])
 
@@ -23,13 +24,13 @@ class MouseRemapperApp(Adw.Application):
         win = self.props.active_window or MainWindow(application=self)
         win.present()
 
-    def _on_about(self, *_):
+    def _on_about(self, *_args):
         dialog = Adw.AboutDialog(
             application_name=APP_NAME,
             application_icon=APP_ID,
             version=VERSION,
             developer_name="narayanls",
-            comments="Crie macros de teclado nos botões do mouse.",
+            comments=_("Create keyboard macros on your mouse buttons."),
             license_type=Gtk.License.GPL_3_0,
         )
         dialog.present(self.props.active_window)

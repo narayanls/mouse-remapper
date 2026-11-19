@@ -1,12 +1,13 @@
 # Maintainer: narayanls
 pkgname=mouse-remapper
-pkgver=1.0.2
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Create macros from keyboard to mouse buttons"
 arch=('any')
 url="https://github.com/narayanls/Mouse-Remapper"
 license=('GPL-3.0-or-later')
 depends=('python' 'python-gobject' 'gtk4' 'libadwaita' 'python-evdev' 'systemd')
+makedepends=('gettext')
 install=mouse-remapper.install
 # Sem repositório ainda: os arquivos são lidos da pasta local (../usr).
 source=()
@@ -23,6 +24,14 @@ package() {
         install -Dm644 "$_f" "$_app/${_f#./}"
     done < <(find . -type f -name '*.py' -not -path '*/__pycache__/*' -print0)
     python -m compileall -q -d /usr/share/mouse-remapper "$_app"
+
+    # Traduções: compila po/*.po em /usr/share/locale/<idioma>/LC_MESSAGES/
+    local _po _lang
+    for _po in "$startdir"/../po/*.po; do
+        _lang="$(basename "$_po" .po)"
+        install -dm755 "$pkgdir/usr/share/locale/$_lang/LC_MESSAGES"
+        msgfmt --check -o "$pkgdir/usr/share/locale/$_lang/LC_MESSAGES/mouse-remapper.mo" "$_po"
+    done
 
     install -Dm644 "$_src/share/applications/io.github.narayanls.MouseRemapper.desktop" \
         "$pkgdir/usr/share/applications/io.github.narayanls.MouseRemapper.desktop"

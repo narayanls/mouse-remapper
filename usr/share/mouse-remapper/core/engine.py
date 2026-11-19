@@ -25,6 +25,7 @@ import evdev
 from evdev import UInput, ecodes as e
 
 from . import devices, keys
+from .i18n import _
 
 log = logging.getLogger("mouse-remapper")
 
@@ -73,8 +74,8 @@ class Remapper:
     def run(self):
         if not self.profiles:
             if self.require_device:
-                raise RuntimeError("Nenhum mapeamento para testar.")
-            log.info("Nenhum mapeamento configurado; aguardando.")
+                raise RuntimeError(_("No mappings to test."))
+            log.info(_("No mappings configured; waiting."))
             while not self._stop.wait(1.0):
                 pass
             return
@@ -84,7 +85,8 @@ class Remapper:
                                     name=f"{devices.VIRTUAL_PREFIX} Keyboard")
         except OSError as exc:
             raise RuntimeError(
-                f"Não foi possível criar o teclado virtual em {devices.UINPUT_PATH}: {exc}") from exc
+                _("Could not create the virtual keyboard at {path}: {error}").format(
+                    path=devices.UINPUT_PATH, error=exc)) from exc
 
         try:
             self._loop()
@@ -110,8 +112,8 @@ class Remapper:
                     if self.require_device and not self._attached:
                         detail = "; ".join(sorted(set(self._failed.values())))
                         raise RuntimeError(
-                            "Não foi possível capturar o mouse." + (f" {detail}" if detail else
-                            " Verifique se ele está conectado."))
+                            _("Could not capture the mouse.") + " "
+                            + (detail or _("Check that it is connected.")))
                     if self.on_ready:
                         self.on_ready(len(self._attached))
 
@@ -121,7 +123,7 @@ class Remapper:
 
             by_fd = {a.dev.fd: path for path, a in self._attached.items()}
             try:
-                ready, _, _ = select.select(list(by_fd), [], [], 1.0)
+                ready, _w, _x = select.select(list(by_fd), [], [], 1.0)
             except (OSError, ValueError):
                 ready = []
                 for path in list(self._attached):
@@ -140,7 +142,7 @@ class Remapper:
                 except BlockingIOError:
                     pass
                 except OSError:
-                    log.info("Dispositivo desconectado: %s", path)
+                    log.info(_("Device disconnected: %s"), path)
                     self._detach(path)
 
     def _scan(self):
@@ -157,7 +159,7 @@ class Remapper:
         try:
             dev = evdev.InputDevice(path)
         except OSError as exc:
-            self._fail(path, f"Sem acesso a {path} ({exc.strerror}).")
+            self._fail(path, _("No access to {path} ({error}).").format(path=path, error=exc.strerror))
             return
         try:
             caps_keys = set(dev.capabilities().get(e.EV_KEY, []))
@@ -177,16 +179,16 @@ class Remapper:
                 dev.grab()
             except OSError as exc:
                 clone.close()
-                raise OSError(exc.errno, "dispositivo em uso por outro programa") from exc
+                raise OSError(exc.errno, _("device in use by another program")) from exc
         except OSError as exc:
             dev.close()
             msg = exc.strerror or str(exc)
-            self._fail(path, f"Falha ao capturar {path}: {msg}.")
+            self._fail(path, _("Failed to capture {path}: {error}.").format(path=path, error=msg))
             return
 
         self._failed.pop(path, None)
         self._attached[path] = _Attached(dev=dev, clone=clone, table=table)
-        log.info("Capturado: %s (%s)", path, dev.name)
+        log.info(_("Captured: %s (%s)"), path, dev.name)
 
     def _fail(self, path: str, msg: str):
         if self._failed.get(path) != msg:

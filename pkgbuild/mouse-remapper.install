@@ -8,6 +8,13 @@ post_install() {
     _reload_uinput
     cat <<'MSG'
 
+==> Mouse Remapper installed.
+==> To read the mouse, your user must be in the "input" group:
+==>     sudo usermod -aG input $USER
+==> Then RESTART the computer (closing and reopening the app is not enough).
+==> Macros are saved in ~/.config/mouse-remapper/config.json and applied by the
+==> user service "mouse-remapper.service" (enabled when you click Save).
+
 ==> Mouse Remapper instalado.
 ==> Para ler o mouse, seu usuário precisa estar no grupo "input":
 ==>     sudo usermod -aG input $USER
@@ -23,5 +30,6 @@ post_upgrade() {
 }
 
 pre_remove() {
-    echo "==> Para desativar o serviço do seu usuário: systemctl --user disable --now mouse-remapper.service"
+    echo "==> To disable the service for your user / Para desativar o serviço do seu usuário:"
+    echo "==>     systemctl --user disable --now mouse-remapper.service"
 }

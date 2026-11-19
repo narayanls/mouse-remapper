@@ -2,6 +2,8 @@
 
 import subprocess
 
+from .i18n import _
+
 SERVICE = "mouse-remapper.service"
 
 
@@ -43,10 +45,12 @@ def apply(has_mappings: bool) -> tuple[bool, str]:
     _ctl("daemon-reload")
     r = _ctl("enable", SERVICE)
     if not r or r.returncode != 0:
-        return False, "Não foi possível ativar o serviço: " + ("" if r is None else r.stderr.strip())
+        return False, _("Could not enable the service: {error}").format(
+            error="" if r is None else r.stderr.strip())
     r = _ctl("restart", SERVICE)
     if not r or r.returncode != 0:
-        return False, "Não foi possível iniciar o serviço: " + ("" if r is None else r.stderr.strip())
+        return False, _("Could not start the service: {error}").format(
+            error="" if r is None else r.stderr.strip())
     return True, ""
 
 

@@ -1,0 +1,576 @@
+# Portuguese translation for Mouse Remapper.
+# This file is distributed under the same license as the mouse-remapper package.
+msgid ""
+msgstr ""
+"Project-Id-Version: mouse-remapper\n"
+"Report-Msgid-Bugs-To: https://github.com/narayanls/mouse-remapper/issues\n"
+"POT-Creation-Date: 2026-11-19 10:14-0300\n"
+"PO-Revision-Date: 2026-11-19 10:30-0300\n"
+"Last-Translator: narayanls\n"
+"Language-Team: Portuguese\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: usr/share/mouse-remapper/core/daemon.py:28
+msgid "Reloading configuration…"
+msgstr "Recarregando configuração…"
+
+#: usr/share/mouse-remapper/core/daemon.py:39
+#, python-format
+msgid "%d mapping(s) on %d device(s)."
+msgstr "%d mapeamento(s) em %d dispositivo(s)."
+
+#: usr/share/mouse-remapper/core/daemon.py:51
+msgid "Stopped."
+msgstr "Encerrado."
+
+#: usr/share/mouse-remapper/core/detect.py:36
+#: usr/share/mouse-remapper/core/engine.py:162
+#, python-brace-format
+msgid "No access to {path} ({error})."
+msgstr "Sem acesso a {path} ({error})."
+
+#: usr/share/mouse-remapper/core/detect.py:38
+msgid "Mouse not found."
+msgstr "Mouse não encontrado."
+
+#: usr/share/mouse-remapper/core/detect.py:43
+msgid "Timed out: no button was pressed."
+msgstr "Tempo esgotado: nenhum botão foi pressionado."
+
+#: usr/share/mouse-remapper/core/engine.py:77
+msgid "No mappings to test."
+msgstr "Nenhum mapeamento para testar."
+
+#: usr/share/mouse-remapper/core/engine.py:78
+msgid "No mappings configured; waiting."
+msgstr "Nenhum mapeamento configurado; aguardando."
+
+#: usr/share/mouse-remapper/core/engine.py:88
+#, python-brace-format
+msgid "Could not create the virtual keyboard at {path}: {error}"
+msgstr "Não foi possível criar o teclado virtual em {path}: {error}"
+
+#: usr/share/mouse-remapper/core/engine.py:115
+msgid "Could not capture the mouse."
+msgstr "Não foi possível capturar o mouse."
+
+#: usr/share/mouse-remapper/core/engine.py:116
+msgid "Check that it is connected."
+msgstr "Verifique se ele está conectado."
+
+#: usr/share/mouse-remapper/core/engine.py:145
+#, python-format
+msgid "Device disconnected: %s"
+msgstr "Dispositivo desconectado: %s"
+
+#: usr/share/mouse-remapper/core/engine.py:182
+msgid "device in use by another program"
+msgstr "dispositivo em uso por outro programa"
+
+#: usr/share/mouse-remapper/core/engine.py:186
+#, python-brace-format
+msgid "Failed to capture {path}: {error}."
+msgstr "Falha ao capturar {path}: {error}."
+
+#: usr/share/mouse-remapper/core/engine.py:191
+#, python-format
+msgid "Captured: %s (%s)"
+msgstr "Capturado: %s (%s)"
+
+#: usr/share/mouse-remapper/core/keys.py:18
+msgid "Right Ctrl"
+msgstr "Ctrl Direito"
+
+#: usr/share/mouse-remapper/core/keys.py:19
+msgid "Right Shift"
+msgstr "Shift Direito"
+
+#: usr/share/mouse-remapper/core/keys.py:21
+msgid "Right Super"
+msgstr "Super Direito"
+
+#: usr/share/mouse-remapper/core/keys.py:23
+msgid "Space"
+msgstr "Espaço"
+
+#: usr/share/mouse-remapper/core/keys.py:27
+msgid "Arrow ↑"
+msgstr "Seta ↑"
+
+#: usr/share/mouse-remapper/core/keys.py:27
+msgid "Arrow ↓"
+msgstr "Seta ↓"
+
+#: usr/share/mouse-remapper/core/keys.py:27
+msgid "Arrow ←"
+msgstr "Seta ←"
+
+#: usr/share/mouse-remapper/core/keys.py:27
+msgid "Arrow →"
+msgstr "Seta →"
+
+#: usr/share/mouse-remapper/core/keys.py:29
+msgid "Mute"
+msgstr "Mudo"
+
+#: usr/share/mouse-remapper/core/keys.py:30
+msgid "Stop media"
+msgstr "Parar mídia"
+
+#: usr/share/mouse-remapper/core/keys.py:31
+msgid "Next track"
+msgstr "Próxima faixa"
+
+#: usr/share/mouse-remapper/core/keys.py:31
+msgid "Previous track"
+msgstr "Faixa anterior"
+
+#: usr/share/mouse-remapper/core/keys.py:32
+msgid "Brightness +"
+msgstr "Brilho +"
+
+#: usr/share/mouse-remapper/core/keys.py:32
+msgid "Brightness −"
+msgstr "Brilho −"
+
+#: usr/share/mouse-remapper/core/keys.py:33
+msgid "Calculator"
+msgstr "Calculadora"
+
+#: usr/share/mouse-remapper/core/keys.py:33
+msgid "Browser"
+msgstr "Navegador"
+
+#: usr/share/mouse-remapper/core/keys.py:33
+msgid "Email"
+msgstr "E-mail"
+
+#: usr/share/mouse-remapper/core/keys.py:34
+msgid "Home page"
+msgstr "Página inicial"
+
+#: usr/share/mouse-remapper/core/keys.py:34
+msgid "Back (browser)"
+msgstr "Voltar (navegador)"
+
+#: usr/share/mouse-remapper/core/keys.py:35
+msgid "Forward (browser)"
+msgstr "Avançar (navegador)"
+
+#: usr/share/mouse-remapper/core/keys.py:35
+msgid "Refresh (browser)"
+msgstr "Atualizar (navegador)"
+
+#: usr/share/mouse-remapper/core/keys.py:37
+msgid "Num ."
+msgstr "Num ,"
+
+#: usr/share/mouse-remapper/core/keys.py:46
+msgid "\\ (ISO key)"
+msgstr "\\ (tecla ISO)"
+
+#: usr/share/mouse-remapper/core/keys.py:46
+msgid "/ (ABNT key)"
+msgstr "/ (ABNT)"
+
+#: usr/share/mouse-remapper/core/keys.py:50
+msgid "Left button"
+msgstr "Botão esquerdo"
+
+#: usr/share/mouse-remapper/core/keys.py:51
+msgid "Right button"
+msgstr "Botão direito"
+
+#: usr/share/mouse-remapper/core/keys.py:52
+msgid "Middle button (wheel)"
+msgstr "Botão do meio (roda)"
+
+#: usr/share/mouse-remapper/core/keys.py:53
+msgid "Side – Back"
+msgstr "Lateral – Voltar"
+
+#: usr/share/mouse-remapper/core/keys.py:54
+msgid "Side – Forward"
+msgstr "Lateral – Avançar"
+
+#: usr/share/mouse-remapper/core/keys.py:55
+msgid "Forward button"
+msgstr "Botão Avançar"
+
+#: usr/share/mouse-remapper/core/keys.py:56
+msgid "Back button"
+msgstr "Botão Voltar"
+
+#: usr/share/mouse-remapper/core/keys.py:57
+msgid "Extra button (Task)"
+msgstr "Botão extra (Task)"
+
+#: usr/share/mouse-remapper/core/keys.py:84
+#, python-brace-format
+msgid "Code {code}"
+msgstr "Código {code}"
+
+#: usr/share/mouse-remapper/core/keys.py:102
+#: usr/share/mouse-remapper/core/keys.py:103
+#: usr/share/mouse-remapper/core/keys.py:107
+#, python-brace-format
+msgid "Button {name}"
+msgstr "Botão {name}"
+
+#: usr/share/mouse-remapper/core/keys.py:106
+#, python-brace-format
+msgid "Button that sends “{key}”"
+msgstr "Botão que envia “{key}”"
+
+#: usr/share/mouse-remapper/core/service.py:48
+#, python-brace-format
+msgid "Could not enable the service: {error}"
+msgstr "Não foi possível ativar o serviço: {error}"
+
+#: usr/share/mouse-remapper/core/service.py:52
+#, python-brace-format
+msgid "Could not start the service: {error}"
+msgstr "Não foi possível iniciar o serviço: {error}"
+
+#: usr/share/mouse-remapper/ui/application.py:33
+msgid "Create keyboard macros on your mouse buttons."
+msgstr "Crie macros de teclado nos botões do mouse."
+
+#: usr/share/mouse-remapper/ui/window.py:92
+#: usr/share/mouse-remapper/ui/window.py:97
+msgid "Scan for mice again"
+msgstr "Procurar mouses novamente"
+
+#: usr/share/mouse-remapper/ui/window.py:98
+msgid "Disable background service"
+msgstr "Desativar serviço em segundo plano"
+
+#: usr/share/mouse-remapper/ui/window.py:99
+#, python-brace-format
+msgid "About {app}"
+msgstr "Sobre o {app}"
+
+#: usr/share/mouse-remapper/ui/window.py:101
+msgid "Main menu"
+msgstr "Menu principal"
+
+#: usr/share/mouse-remapper/ui/window.py:104
+#: usr/share/mouse-remapper/ui/window.py:356
+msgid "Copy command"
+msgstr "Copiar comando"
+
+#: usr/share/mouse-remapper/ui/window.py:119
+msgid "Device"
+msgstr "Dispositivo"
+
+#: usr/share/mouse-remapper/ui/window.py:120
+msgid "Mouse"
+msgstr "Mouse"
+
+#: usr/share/mouse-remapper/ui/window.py:128
+msgid "New macro"
+msgstr "Nova macro"
+
+#: usr/share/mouse-remapper/ui/window.py:129
+msgid "Choose the keys on one side and the mouse button on the other."
+msgstr "Escolha as teclas de um lado e o botão do mouse do outro."
+
+#: usr/share/mouse-remapper/ui/window.py:142
+msgid "The mouse button sends these keys"
+msgstr "O botão do mouse envia estas teclas"
+
+#: usr/share/mouse-remapper/ui/window.py:149
+#: usr/share/mouse-remapper/ui/window.py:458
+msgid "Add mapping"
+msgstr "Adicionar mapeamento"
+
+#: usr/share/mouse-remapper/ui/window.py:158
+msgid "Mappings for this mouse"
+msgstr "Mapeamentos deste mouse"
+
+#: usr/share/mouse-remapper/ui/window.py:161
+msgid "No mappings yet."
+msgstr "Nenhum mapeamento ainda."
+
+#: usr/share/mouse-remapper/ui/window.py:169
+msgid "Testing"
+msgstr "Teste"
+
+#: usr/share/mouse-remapper/ui/window.py:170
+msgid ""
+"You don't need to save to test. The test uses the macro in the editor and "
+"the ones in the list; then click “Save” to keep them always active."
+msgstr ""
+"Não é preciso salvar para testar. O teste usa a macro do editor e as da "
+"lista; depois, clique em “Salvar” para deixá-las sempre ativas."
+
+#: usr/share/mouse-remapper/ui/window.py:174
+msgid "Test area — the resulting keys appear here"
+msgstr "Área de teste — o resultado das teclas aparece aqui"
+
+#: usr/share/mouse-remapper/ui/window.py:175
+#: usr/share/mouse-remapper/ui/window.py:710
+msgid "Keys received: —"
+msgstr "Teclas recebidas: —"
+
+#: usr/share/mouse-remapper/ui/window.py:179
+#: usr/share/mouse-remapper/ui/window.py:676
+msgid "Test"
+msgstr "Testar"
+
+#: usr/share/mouse-remapper/ui/window.py:181
+msgid "Turns the macros on temporarily, without saving"
+msgstr "Ativa as macros temporariamente, sem salvar"
+
+#: usr/share/mouse-remapper/ui/window.py:196
+#: usr/share/mouse-remapper/ui/window.py:806
+msgid "Save"
+msgstr "Salvar"
+
+#: usr/share/mouse-remapper/ui/window.py:198
+msgid "Saves and keeps the macros active after restarting the computer"
+msgstr "Salva e mantém ativo após reiniciar o computador"
+
+#: usr/share/mouse-remapper/ui/window.py:233
+msgid "Keyboard keys"
+msgstr "Teclas do teclado"
+
+#: usr/share/mouse-remapper/ui/window.py:239
+#: usr/share/mouse-remapper/ui/window.py:493
+msgid "Record keys"
+msgstr "Gravar teclas"
+
+#: usr/share/mouse-remapper/ui/window.py:242
+msgid "Clear keys"
+msgstr "Limpar teclas"
+
+#: usr/share/mouse-remapper/ui/window.py:250
+msgid "Click Record and press the combination (e.g. Ctrl + C)."
+msgstr "Clique em Gravar e pressione a combinação (ex.: Ctrl + C)."
+
+#: usr/share/mouse-remapper/ui/window.py:257
+msgid "Sequence: each recording adds a step"
+msgstr "Sequência: cada gravação adiciona uma etapa"
+
+#: usr/share/mouse-remapper/ui/window.py:259
+msgid "E.g. Ctrl + C  →  Alt + Tab  →  Ctrl + V, sent in order on click"
+msgstr "Ex.: Ctrl + C  →  Alt + Tab  →  Ctrl + V, enviados em ordem ao clicar"
+
+#: usr/share/mouse-remapper/ui/window.py:262
+msgid "Pick a key from the list"
+msgstr "Escolher tecla da lista"
+
+#: usr/share/mouse-remapper/ui/window.py:270
+msgid "Add to combination"
+msgstr "Adicionar à combinação"
+
+#: usr/share/mouse-remapper/ui/window.py:275
+msgid "Useful for keys the system intercepts, such as Super"
+msgstr "Útil para teclas que o sistema intercepta, como Super"
+
+#: usr/share/mouse-remapper/ui/window.py:280
+msgid "Mouse button"
+msgstr "Botão do mouse"
+
+#: usr/share/mouse-remapper/ui/window.py:285
+#: usr/share/mouse-remapper/ui/window.py:595
+msgid "Detect button"
+msgstr "Detectar botão"
+
+#: usr/share/mouse-remapper/ui/window.py:290
+msgid "Click Detect and press the button on the mouse."
+msgstr "Clique em Detectar e pressione o botão no mouse."
+
+#: usr/share/mouse-remapper/ui/window.py:296
+msgid "Or pick from the list…"
+msgstr "Ou escolha da lista…"
+
+#: usr/share/mouse-remapper/ui/window.py:319
+msgid "Unsaved changes"
+msgstr "Alterações não salvas"
+
+#: usr/share/mouse-remapper/ui/window.py:328
+msgid "Service paused during test/detection"
+msgstr "Serviço pausado durante o teste/detecção"
+
+#: usr/share/mouse-remapper/ui/window.py:330
+msgid "Macros active in the background"
+msgstr "Macros ativas em segundo plano"
+
+#: usr/share/mouse-remapper/ui/window.py:332
+msgid "Background service inactive"
+msgstr "Serviço em segundo plano inativo"
+
+#: usr/share/mouse-remapper/ui/window.py:358
+msgid ""
+"Permission granted! Restart the computer so Mouse Remapper can access the "
+"mouse."
+msgstr ""
+"Permissão concedida! Reinicie o computador para que o Mouse Remapper consiga "
+"acessar o mouse."
+
+#: usr/share/mouse-remapper/ui/window.py:363
+#, python-brace-format
+msgid ""
+"No permission to read the mouse. Run the command below and then RESTART the "
+"computer (closing the app is not enough): {command}"
+msgstr ""
+"Sem permissão para ler o mouse. Execute o comando abaixo e depois REINICIE o "
+"computador (fechar o app não basta): {command}"
+
+#: usr/share/mouse-remapper/ui/window.py:368
+#, python-brace-format
+msgid "The uinput module is not loaded. Run: {command}"
+msgstr "O módulo uinput não está carregado. Execute: {command}"
+
+#: usr/share/mouse-remapper/ui/window.py:373
+#, python-brace-format
+msgid "No permission on /dev/uinput. Reinstall the package or run: {command}"
+msgstr "Sem permissão em /dev/uinput. Reinstale o pacote ou execute: {command}"
+
+#: usr/share/mouse-remapper/ui/window.py:382
+msgid "Command copied. Run it in the terminal and restart the computer."
+msgstr "Comando copiado. Execute no terminal e reinicie o computador."
+
+#: usr/share/mouse-remapper/ui/window.py:384
+msgid "Command copied"
+msgstr "Comando copiado"
+
+#: usr/share/mouse-remapper/ui/window.py:404
+#, python-brace-format
+msgid "{name} (disconnected)"
+msgstr "{name} (desconectado)"
+
+#: usr/share/mouse-remapper/ui/window.py:424
+msgid "No mouse found"
+msgstr "Nenhum mouse encontrado"
+
+#: usr/share/mouse-remapper/ui/window.py:436
+msgid "Disconnected"
+msgstr "Desconectado"
+
+#: usr/share/mouse-remapper/ui/window.py:450
+msgid "No keys"
+msgstr "Nenhuma tecla"
+
+#: usr/share/mouse-remapper/ui/window.py:453
+msgid "No button"
+msgstr "Nenhum botão"
+
+#: usr/share/mouse-remapper/ui/window.py:458
+msgid "Update mapping"
+msgstr "Atualizar mapeamento"
+
+#: usr/share/mouse-remapper/ui/window.py:478
+msgid "Press the keys… (cancel)"
+msgstr "Pressione as teclas… (cancelar)"
+
+#: usr/share/mouse-remapper/ui/window.py:513
+#, python-brace-format
+msgid "Keys received: {keys}"
+msgstr "Teclas recebidas: {keys}"
+
+#: usr/share/mouse-remapper/ui/window.py:566
+msgid "Connect and select a mouse first"
+msgstr "Conecte e selecione um mouse primeiro"
+
+#: usr/share/mouse-remapper/ui/window.py:571
+msgid "Press a mouse button… (cancel)"
+msgstr "Pressione um botão do mouse… (cancelar)"
+
+#: usr/share/mouse-remapper/ui/window.py:608
+msgid "Warning: the left button will stop clicking while the macro is active."
+msgstr ""
+"Atenção: o botão esquerdo deixará de clicar enquanto a macro estiver ativa."
+
+#: usr/share/mouse-remapper/ui/window.py:621
+#, python-brace-format
+msgid "Sends: {keys}"
+msgstr "Envia: {keys}"
+
+#: usr/share/mouse-remapper/ui/window.py:626
+msgid "Edit"
+msgstr "Editar"
+
+#: usr/share/mouse-remapper/ui/window.py:630
+msgid "Remove"
+msgstr "Remover"
+
+#: usr/share/mouse-remapper/ui/window.py:638
+msgid "No macros added yet. Build one above and click “Add mapping”."
+msgstr ""
+"Nenhuma macro adicionada ainda. Monte uma acima e clique em “Adicionar "
+"mapeamento”."
+
+#: usr/share/mouse-remapper/ui/window.py:676
+msgid "Stop test"
+msgstr "Parar teste"
+
+#: usr/share/mouse-remapper/ui/window.py:694
+msgid "Choose the keys and the mouse button before testing"
+msgstr "Escolha as teclas e o botão do mouse antes de testar"
+
+#: usr/share/mouse-remapper/ui/window.py:698
+msgid "The selected mouse is disconnected"
+msgstr "O mouse selecionado está desconectado"
+
+#: usr/share/mouse-remapper/ui/window.py:725
+#, python-brace-format
+msgid ""
+"● Test active with {n} macro. Use the mouse button with the cursor in the "
+"field below."
+msgid_plural ""
+"● Test active with {n} macros. Use the mouse button with the cursor in the "
+"field below."
+msgstr[0] ""
+"● Teste ativo com {n} macro. Use o botão do mouse com o cursor no campo "
+"abaixo."
+msgstr[1] ""
+"● Teste ativo com {n} macros. Use o botão do mouse com o cursor no campo "
+"abaixo."
+
+#: usr/share/mouse-remapper/ui/window.py:775
+#, python-brace-format
+msgid "Error while saving: {error}"
+msgstr "Erro ao salvar: {error}"
+
+#: usr/share/mouse-remapper/ui/window.py:782
+#, python-brace-format
+msgid "Saved, but there was a problem with the service. {details}"
+msgstr "Salvo, mas houve um problema com o serviço. {details}"
+
+#: usr/share/mouse-remapper/ui/window.py:784
+msgid "Saved! The macros stay active even after a restart."
+msgstr "Salvo! As macros ficam ativas inclusive após reiniciar."
+
+#: usr/share/mouse-remapper/ui/window.py:786
+msgid "Saved. With no mappings, the service was disabled."
+msgstr "Salvo. Sem mapeamentos, o serviço foi desativado."
+
+#: usr/share/mouse-remapper/ui/window.py:794
+msgid "Service disabled. Click Save to turn it back on."
+msgstr "Serviço desativado. Clique em Salvar para reativar."
+
+#: usr/share/mouse-remapper/ui/window.py:796
+msgid "Could not disable the service."
+msgstr "Não foi possível desativar o serviço."
+
+#: usr/share/mouse-remapper/ui/window.py:802
+msgid "Save changes?"
+msgstr "Salvar alterações?"
+
+#: usr/share/mouse-remapper/ui/window.py:803
+msgid "Some mappings have not been saved yet."
+msgstr "Há mapeamentos que ainda não foram salvos."
+
+#: usr/share/mouse-remapper/ui/window.py:804
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: usr/share/mouse-remapper/ui/window.py:805
+msgid "Discard"
+msgstr "Descartar"

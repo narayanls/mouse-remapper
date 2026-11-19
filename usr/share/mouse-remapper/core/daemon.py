@@ -10,6 +10,7 @@ import time
 
 from . import config
 from .engine import Remapper
+from .i18n import _
 
 log = logging.getLogger("mouse-remapper")
 
@@ -18,13 +19,13 @@ def run() -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     state = {"exit": False, "engine": None}
 
-    def on_term(*_):
+    def on_term(*_args):
         state["exit"] = True
         if state["engine"]:
             state["engine"].stop()
 
-    def on_hup(*_):
-        log.info("Recarregando configuração…")
+    def on_hup(*_args):
+        log.info(_("Reloading configuration…"))
         if state["engine"]:
             state["engine"].stop()
 
@@ -35,7 +36,7 @@ def run() -> int:
     while not state["exit"]:
         profiles = config.profiles(config.load())
         total = sum(len(m) for m in profiles.values())
-        log.info("%d mapeamento(s) em %d dispositivo(s).", total, len(profiles))
+        log.info(_("%d mapping(s) on %d device(s)."), total, len(profiles))
         engine = Remapper(profiles)
         state["engine"] = engine
         try:
@@ -43,9 +44,9 @@ def run() -> int:
         except Exception as exc:  # noqa: BLE001
             log.error("%s", exc)
             # Ex.: /dev/uinput sem permissão. Tenta de novo em alguns segundos.
-            for _ in range(50):
+            for _attempt in range(50):
                 if state["exit"]:
                     break
                 time.sleep(0.1)
-    log.info("Encerrado.")
+    log.info(_("Stopped."))
     return 0

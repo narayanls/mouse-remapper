@@ -2,4 +2,4 @@
 
 APP_ID = "io.github.narayanls.MouseRemapper"
 APP_NAME = "Mouse Remapper"
-VERSION = "1.0.2"
+VERSION = "1.1.0"

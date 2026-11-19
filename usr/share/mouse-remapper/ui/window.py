@@ -6,6 +6,7 @@ from evdev import ecodes
 from gi.repository import Adw, Gdk, Gio, GLib, Gtk
 
 from core import APP_NAME, config, devices, keys, service
+from core.i18n import _, ngettext
 from core.detect import ButtonDetector
 from core.engine import Remapper
 from . import labels
@@ -88,19 +89,19 @@ class MainWindow(Adw.ApplicationWindow):
         header.set_title_widget(self.title_widget)
 
         refresh_btn = Gtk.Button(icon_name="view-refresh-symbolic",
-                                 tooltip_text="Procurar mouses novamente")
+                                 tooltip_text=_("Scan for mice again"))
         refresh_btn.set_action_name("win.refresh")
         header.pack_start(refresh_btn)
 
         menu = Gio.Menu()
-        menu.append("Procurar mouses novamente", "win.refresh")
-        menu.append("Desativar serviço em segundo plano", "win.disable-service")
-        menu.append(f"Sobre o {APP_NAME}", "app.about")
+        menu.append(_("Scan for mice again"), "win.refresh")
+        menu.append(_("Disable background service"), "win.disable-service")
+        menu.append(_("About {app}").format(app=APP_NAME), "app.about")
         header.pack_end(Gtk.MenuButton(icon_name="open-menu-symbolic", menu_model=menu,
-                                       tooltip_text="Menu principal"))
+                                       tooltip_text=_("Main menu")))
         toolbar.add_top_bar(header)
 
-        self.banner = Adw.Banner(button_label="Copiar comando")
+        self.banner = Adw.Banner(button_label=_("Copy command"))
         self.banner.connect("button-clicked", self._on_banner_copy)
         toolbar.add_top_bar(self.banner)
 
@@ -115,8 +116,8 @@ class MainWindow(Adw.ApplicationWindow):
         toolbar.set_content(self.toast_overlay)
 
         # --- Dispositivo
-        dev_group = Adw.PreferencesGroup(title="Dispositivo")
-        self.device_row = Adw.ComboRow(title="Mouse")
+        dev_group = Adw.PreferencesGroup(title=_("Device"))
+        self.device_row = Adw.ComboRow(title=_("Mouse"))
         self.device_row.add_prefix(Gtk.Image.new_from_icon_name("input-mouse-symbolic"))
         self.device_row.connect("notify::selected", self._on_device_changed)
         dev_group.add(self.device_row)
@@ -124,8 +125,8 @@ class MainWindow(Adw.ApplicationWindow):
 
         # --- Editor
         editor_group = Adw.PreferencesGroup(
-            title="Nova macro",
-            description="Escolha as teclas de um lado e o botão do mouse do outro.")
+            title=_("New macro"),
+            description=_("Choose the keys on one side and the mouse button on the other."))
         editor = Gtk.Box(spacing=12)
         size_group = Gtk.SizeGroup(mode=Gtk.SizeGroupMode.HORIZONTAL)
 
@@ -138,14 +139,14 @@ class MainWindow(Adw.ApplicationWindow):
         arrow.set_pixel_size(28)
         arrow.set_valign(Gtk.Align.CENTER)
         arrow.add_css_class("dim-label")
-        arrow.set_tooltip_text("O botão do mouse envia estas teclas")
+        arrow.set_tooltip_text(_("The mouse button sends these keys"))
 
         editor.append(keys_card)
         editor.append(arrow)
         editor.append(mouse_card)
         editor_group.add(editor)
 
-        self.add_btn = Gtk.Button(label="Adicionar mapeamento", halign=Gtk.Align.CENTER,
+        self.add_btn = Gtk.Button(label=_("Add mapping"), halign=Gtk.Align.CENTER,
                                   margin_top=12)
         self.add_btn.add_css_class("pill")
         self.add_btn.add_css_class("suggested-action")
@@ -154,10 +155,10 @@ class MainWindow(Adw.ApplicationWindow):
         content.append(editor_group)
 
         # --- Lista de mapeamentos
-        self.maps_group = Adw.PreferencesGroup(title="Mapeamentos deste mouse")
+        self.maps_group = Adw.PreferencesGroup(title=_("Mappings for this mouse"))
         self.maps_list = Gtk.ListBox(selection_mode=Gtk.SelectionMode.NONE)
         self.maps_list.add_css_class("boxed-list")
-        placeholder = Gtk.Label(label="Nenhum mapeamento ainda.", margin_top=18, margin_bottom=18)
+        placeholder = Gtk.Label(label=_("No mappings yet."), margin_top=18, margin_bottom=18)
         placeholder.add_css_class("dim-label")
         self.maps_list.set_placeholder(placeholder)
         self.maps_group.add(self.maps_list)
@@ -165,18 +166,19 @@ class MainWindow(Adw.ApplicationWindow):
 
         # --- Área de teste
         test_group = Adw.PreferencesGroup(
-            title="Teste",
-            description="Não é preciso salvar para testar. O teste usa a macro do editor e as "
-                        "da lista; depois, clique em “Salvar” para deixá-las sempre ativas.")
+            title=_("Testing"),
+            description=_("You don't need to save to test. The test uses the macro in the "
+                          "editor and the ones in the list; then click “Save” to keep them "
+                          "always active."))
         test_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.test_entry = Gtk.Entry(placeholder_text="Área de teste — o resultado das teclas aparece aqui")
-        self.received_label = Gtk.Label(label="Teclas recebidas: —", xalign=0)
+        self.test_entry = Gtk.Entry(placeholder_text=_("Test area — the resulting keys appear here"))
+        self.received_label = Gtk.Label(label=_("Keys received: —"), xalign=0)
         self.received_label.add_css_class("dim-label")
         self.test_status = Gtk.Label(xalign=0, wrap=True, visible=False)
         self.test_status.add_css_class("success")
-        self.test_btn = Gtk.ToggleButton(label="Testar", halign=Gtk.Align.START)
+        self.test_btn = Gtk.ToggleButton(label=_("Test"), halign=Gtk.Align.START)
         self.test_btn.add_css_class("pill")
-        self.test_btn.set_tooltip_text("Ativa as macros temporariamente, sem salvar")
+        self.test_btn.set_tooltip_text(_("Turns the macros on temporarily, without saving"))
         self.test_btn.connect("toggled", self._on_test_toggled)
         test_box.append(self.test_btn)
         test_box.append(self.test_status)
@@ -191,10 +193,10 @@ class MainWindow(Adw.ApplicationWindow):
         self.status_label.add_css_class("dim-label")
         action_bar.pack_start(self.status_label)
 
-        self.save_btn = Gtk.Button(label="Salvar")
+        self.save_btn = Gtk.Button(label=_("Save"))
         self.save_btn.add_css_class("suggested-action")
-        self.save_btn.set_tooltip_text("Salva e mantém ativo após reiniciar o computador")
-        self.save_btn.connect("clicked", lambda *_: self.save())
+        self.save_btn.set_tooltip_text(_("Saves and keeps the macros active after restarting the computer"))
+        self.save_btn.connect("clicked", lambda *_args: self.save())
         action_bar.pack_end(self.save_btn)
 
         toolbar.add_bottom_bar(action_bar)
@@ -228,16 +230,16 @@ class MainWindow(Adw.ApplicationWindow):
         return lbl
 
     def _build_keys_card(self) -> Gtk.Box:
-        card, _ = self._card("Teclas do teclado", "input-keyboard-symbolic")
+        card, _head = self._card(_("Keyboard keys"), "input-keyboard-symbolic")
 
         self.keys_label = self._value_label()
         card.append(self.keys_label)
 
         row = Gtk.Box(spacing=6, halign=Gtk.Align.CENTER)
-        self.record_btn = Gtk.Button(label="Gravar teclas")
+        self.record_btn = Gtk.Button(label=_("Record keys"))
         self.record_btn.add_css_class("pill")
         self.record_btn.connect("clicked", self._on_record_clicked)
-        clear_btn = Gtk.Button(icon_name="edit-clear-symbolic", tooltip_text="Limpar teclas")
+        clear_btn = Gtk.Button(icon_name="edit-clear-symbolic", tooltip_text=_("Clear keys"))
         clear_btn.add_css_class("circular")
         clear_btn.add_css_class("flat")
         clear_btn.connect("clicked", self._on_clear_keys)
@@ -245,19 +247,19 @@ class MainWindow(Adw.ApplicationWindow):
         row.append(clear_btn)
         card.append(row)
 
-        hint = Gtk.Label(label="Clique em Gravar e pressione a combinação (ex.: Ctrl + C).",
+        hint = Gtk.Label(label=_("Click Record and press the combination (e.g. Ctrl + C)."),
                          wrap=True, justify=Gtk.Justification.CENTER)
         hint.add_css_class("caption")
         hint.add_css_class("dim-label")
         card.append(hint)
 
         self.sequence_check = Gtk.CheckButton(
-            label="Sequência: cada gravação adiciona uma etapa")
+            label=_("Sequence: each recording adds a step"))
         self.sequence_check.set_tooltip_text(
-            "Ex.: Ctrl + C  →  Alt + Tab  →  Ctrl + V, enviados em ordem ao clicar")
+            _("E.g. Ctrl + C  →  Alt + Tab  →  Ctrl + V, sent in order on click"))
         card.append(self.sequence_check)
 
-        expander = Gtk.Expander(label="Escolher tecla da lista")
+        expander = Gtk.Expander(label=_("Pick a key from the list"))
         exp_box = Gtk.Box(spacing=6, margin_top=6)
         self.key_codes = keys.selectable_key_codes()
         key_model = Gtk.StringList.new([f"{labels.key_label(c)}" for c in self.key_codes])
@@ -265,33 +267,33 @@ class MainWindow(Adw.ApplicationWindow):
         self.key_dropdown.set_expression(
             Gtk.PropertyExpression.new(Gtk.StringObject, None, "string"))
         add_key_btn = Gtk.Button(icon_name="list-add-symbolic",
-                                 tooltip_text="Adicionar à combinação")
+                                 tooltip_text=_("Add to combination"))
         add_key_btn.connect("clicked", self._on_add_key_from_list)
         exp_box.append(self.key_dropdown)
         exp_box.append(add_key_btn)
         expander.set_child(exp_box)
-        expander.set_tooltip_text("Útil para teclas que o sistema intercepta, como Super")
+        expander.set_tooltip_text(_("Useful for keys the system intercepts, such as Super"))
         card.append(expander)
         return card
 
     def _build_mouse_card(self) -> Gtk.Box:
-        card, _ = self._card("Botão do mouse", "input-mouse-symbolic")
+        card, _head = self._card(_("Mouse button"), "input-mouse-symbolic")
 
         self.button_label = self._value_label()
         card.append(self.button_label)
 
-        self.detect_btn = Gtk.Button(label="Detectar botão", halign=Gtk.Align.CENTER)
+        self.detect_btn = Gtk.Button(label=_("Detect button"), halign=Gtk.Align.CENTER)
         self.detect_btn.add_css_class("pill")
         self.detect_btn.connect("clicked", self._on_detect_clicked)
         card.append(self.detect_btn)
 
-        hint = Gtk.Label(label="Clique em Detectar e pressione o botão no mouse.",
+        hint = Gtk.Label(label=_("Click Detect and press the button on the mouse."),
                          wrap=True, justify=Gtk.Justification.CENTER)
         hint.add_css_class("caption")
         hint.add_css_class("dim-label")
         card.append(hint)
 
-        names = ["Ou escolha da lista…"] + [keys.button_label(b) for b in keys.COMMON_BUTTONS]
+        names = [_("Or pick from the list…")] + [keys.button_label(b) for b in keys.COMMON_BUTTONS]
         self.button_dropdown = Gtk.DropDown(model=Gtk.StringList.new(names))
         self.button_dropdown.connect("notify::selected", self._on_button_dropdown)
         card.append(self.button_dropdown)
@@ -299,7 +301,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     def _setup_actions(self):
         refresh = Gio.SimpleAction.new("refresh", None)
-        refresh.connect("activate", lambda *_: (self.refresh_devices(), self.check_permissions()))
+        refresh.connect("activate", lambda *_args: (self.refresh_devices(), self.check_permissions()))
         self.add_action(refresh)
 
         disable = Gio.SimpleAction.new("disable-service", None)
@@ -314,7 +316,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     def _set_dirty(self, value: bool = True):
         self.dirty = value
-        self.status_label.set_label("Alterações não salvas" if value else "")
+        self.status_label.set_label(_("Unsaved changes") if value else "")
 
     def _current_maps(self) -> list:
         if not self.current:
@@ -323,11 +325,11 @@ class MainWindow(Adw.ApplicationWindow):
 
     def _update_service_status(self):
         if self._pause_count:
-            text = "Serviço pausado durante o teste/detecção"
+            text = _("Service paused during test/detection")
         elif service.is_active():
-            text = "Macros ativas em segundo plano"
+            text = _("Macros active in the background")
         else:
-            text = "Serviço em segundo plano inativo"
+            text = _("Background service inactive")
         self.title_widget.set_subtitle(text)
 
     def _pause_service(self):
@@ -351,22 +353,25 @@ class MainWindow(Adw.ApplicationWindow):
     def check_permissions(self):
         problems = devices.permission_problems()
         self._banner_cmd = ""
-        self.banner.set_button_label("Copiar comando")
+        self.banner.set_button_label(_("Copy command"))
         if "input-reboot" in problems:
-            self.banner.set_title("Permissão concedida! Reinicie o computador para que o "
-                                  "Mouse Remapper consiga acessar o mouse.")
+            self.banner.set_title(_("Permission granted! Restart the computer so "
+                                    "Mouse Remapper can access the mouse."))
             self.banner.set_button_label("")  # nada a copiar
         elif "input" in problems:
-            self.banner.set_title("Sem permissão para ler o mouse. Execute o comando abaixo e "
-                                  "depois REINICIE o computador (fechar o app não basta): "
-                                  "sudo usermod -aG input $USER")
+            self.banner.set_title(
+                _("No permission to read the mouse. Run the command below and then RESTART "
+                  "the computer (closing the app is not enough): {command}").format(
+                    command="sudo usermod -aG input $USER"))
             self._banner_cmd = "sudo usermod -aG input $USER"
         elif "uinput-missing" in problems:
-            self.banner.set_title("O módulo uinput não está carregado. Execute: sudo modprobe uinput")
+            self.banner.set_title(_("The uinput module is not loaded. Run: {command}").format(
+                command="sudo modprobe uinput"))
             self._banner_cmd = "sudo modprobe uinput"
         elif "uinput" in problems:
-            self.banner.set_title("Sem permissão em /dev/uinput. Reinstale o pacote ou execute: "
-                                  "sudo udevadm trigger --sysname-match=uinput")
+            self.banner.set_title(
+                _("No permission on /dev/uinput. Reinstall the package or run: {command}").format(
+                    command="sudo udevadm trigger --sysname-match=uinput"))
             self._banner_cmd = "sudo udevadm control --reload && sudo udevadm trigger --sysname-match=uinput"
         self.banner.set_revealed(bool(problems))
 
@@ -374,9 +379,9 @@ class MainWindow(Adw.ApplicationWindow):
         if self._banner_cmd:
             self.get_clipboard().set(self._banner_cmd)
             if "usermod" in self._banner_cmd:
-                self.toast("Comando copiado. Execute no terminal e reinicie o computador.", 8)
+                self.toast(_("Command copied. Run it in the terminal and restart the computer."), 8)
             else:
-                self.toast("Comando copiado")
+                self.toast(_("Command copied"))
             # Reavalia em seguida: após o usermod, a faixa passa a pedir o reinício.
             GLib.timeout_add_seconds(5, self._recheck_permissions)
 
@@ -396,7 +401,7 @@ class MainWindow(Adw.ApplicationWindow):
             entries.append(DeviceEntry(key, name, [], False))
         self.device_entries = entries
 
-        names = [e.name if e.connected else f"{e.name} (desconectado)" for e in entries]
+        names = [e.name if e.connected else _("{name} (disconnected)").format(name=e.name) for e in entries]
         self._updating = True
         self.device_row.set_model(Gtk.StringList.new(names))
         index = 0
@@ -416,10 +421,10 @@ class MainWindow(Adw.ApplicationWindow):
         if entries:
             self.device_row.set_subtitle("")
         else:
-            self.device_row.set_subtitle("Nenhum mouse encontrado")
+            self.device_row.set_subtitle(_("No mouse found"))
         self._on_device_changed()
 
-    def _on_device_changed(self, *_):
+    def _on_device_changed(self, *_args):
         if self._updating:
             return
         idx = self.device_row.get_selected()
@@ -428,7 +433,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.test_btn.set_active(False)
         self.current = new
         if new:
-            self.device_row.set_subtitle(f"ID {new.key}" if new.connected else "Desconectado")
+            self.device_row.set_subtitle(f"ID {new.key}" if new.connected else _("Disconnected"))
         self._rebuild_list()
         self._update_editor()
 
@@ -442,15 +447,15 @@ class MainWindow(Adw.ApplicationWindow):
         elif self.editor_steps:
             self._set_value(self.keys_label, labels.steps_text(self.editor_steps), False)
         else:
-            self._set_value(self.keys_label, "Nenhuma tecla", True)
+            self._set_value(self.keys_label, _("No keys"), True)
 
         if self.editor_button is None:
-            self._set_value(self.button_label, "Nenhum botão", True)
+            self._set_value(self.button_label, _("No button"), True)
         else:
             self._set_value(self.button_label, keys.button_label(self.editor_button), False)
 
         exists = any(m["button"] == self.editor_button for m in self._current_maps())
-        self.add_btn.set_label("Atualizar mapeamento" if exists else "Adicionar mapeamento")
+        self.add_btn.set_label(_("Update mapping") if exists else _("Add mapping"))
         self.add_btn.set_sensitive(bool(self.current and self.editor_steps
                                         and self.editor_button is not None))
         self.detect_btn.set_sensitive(bool(self.current and self.current.connected))
@@ -470,7 +475,7 @@ class MainWindow(Adw.ApplicationWindow):
         else:
             self.recording = True
             self._rec_combo, self._rec_held = [], set()
-            self.record_btn.set_label("Pressione as teclas… (cancelar)")
+            self.record_btn.set_label(_("Press the keys… (cancel)"))
             self.record_btn.add_css_class("recording")
             self.record_btn.add_css_class("destructive-action")
             self._update_editor()
@@ -485,7 +490,7 @@ class MainWindow(Adw.ApplicationWindow):
             self._draft_changed()
         self.recording = False
         self._rec_combo, self._rec_held = [], set()
-        self.record_btn.set_label("Gravar teclas")
+        self.record_btn.set_label(_("Record keys"))
         self.record_btn.remove_css_class("recording")
         self.record_btn.remove_css_class("destructive-action")
         self._update_editor()
@@ -505,7 +510,8 @@ class MainWindow(Adw.ApplicationWindow):
             if code not in self._recv_combo:
                 self._recv_combo.append(code)
             self.received_label.set_label(
-                "Teclas recebidas: " + labels.combo_text(keys.sort_combo(self._recv_combo)))
+                _("Keys received: {keys}").format(
+                    keys=labels.combo_text(keys.sort_combo(self._recv_combo))))
         return False
 
     def _on_key_released(self, _ctrl, _keyval, keycode, _state):
@@ -557,12 +563,12 @@ class MainWindow(Adw.ApplicationWindow):
             self._finish_detection(cancel=True)
             return
         if not self.current or not self.current.connected:
-            self.toast("Conecte e selecione um mouse primeiro")
+            self.toast(_("Connect and select a mouse first"))
             return
         if self.test_btn.get_active():
             self.test_btn.set_active(False)
         self._pause_service()
-        self.detect_btn.set_label("Pressione um botão do mouse… (cancelar)")
+        self.detect_btn.set_label(_("Press a mouse button… (cancel)"))
         self.detect_btn.add_css_class("recording")
         self.detector = ButtonDetector(
             self.current.paths,
@@ -586,7 +592,7 @@ class MainWindow(Adw.ApplicationWindow):
             return
         if cancel:
             det.cancel()
-        self.detect_btn.set_label("Detectar botão")
+        self.detect_btn.set_label(_("Detect button"))
         self.detect_btn.remove_css_class("recording")
         self._resume_service()
 
@@ -599,7 +605,7 @@ class MainWindow(Adw.ApplicationWindow):
         maps.append({"button": self.editor_button, "steps": copy.deepcopy(self.editor_steps)})
         maps.sort(key=lambda m: m["button"])
         if self.editor_button == ecodes.BTN_LEFT:
-            self.toast("Atenção: o botão esquerdo deixará de clicar enquanto a macro estiver ativa.", 6)
+            self.toast(_("Warning: the left button will stop clicking while the macro is active."), 6)
         self.editor_steps, self.editor_button = [], None
         self._set_dirty()
         self._rebuild_list()
@@ -612,16 +618,16 @@ class MainWindow(Adw.ApplicationWindow):
         maps = self._current_maps()
         for m in maps:
             row = Adw.ActionRow(title=keys.button_label(m["button"]),
-                                subtitle="Envia: " + labels.steps_text(m["steps"]))
+                                subtitle=_("Sends: {keys}").format(keys=labels.steps_text(m["steps"])))
             row.set_use_markup(False)
             row.add_prefix(Gtk.Image.new_from_icon_name("input-mouse-symbolic"))
 
             edit = Gtk.Button(icon_name="document-edit-symbolic", valign=Gtk.Align.CENTER,
-                              tooltip_text="Editar")
+                              tooltip_text=_("Edit"))
             edit.add_css_class("flat")
             edit.connect("clicked", self._on_edit_mapping, m["button"])
             delete = Gtk.Button(icon_name="user-trash-symbolic", valign=Gtk.Align.CENTER,
-                                tooltip_text="Remover")
+                                tooltip_text=_("Remove"))
             delete.add_css_class("flat")
             delete.connect("clicked", self._on_delete_mapping, m["button"])
             row.add_suffix(edit)
@@ -629,8 +635,8 @@ class MainWindow(Adw.ApplicationWindow):
             self.maps_list.append(row)
         self.maps_list.set_visible(bool(maps))
         self.maps_group.set_description(
-            None if maps else "Nenhuma macro adicionada ainda. Monte uma acima e clique em "
-                              "“Adicionar mapeamento”.")
+            None if maps else _("No macros added yet. Build one above and click "
+                                "“Add mapping”."))
 
     def _on_edit_mapping(self, _btn, button):
         for m in self._current_maps():
@@ -667,7 +673,7 @@ class MainWindow(Adw.ApplicationWindow):
         self._updating = True
         self.test_btn.set_active(active)
         self._updating = False
-        self.test_btn.set_label("Parar teste" if active else "Testar")
+        self.test_btn.set_label(_("Stop test") if active else _("Test"))
         if active:
             self.test_btn.add_css_class("destructive-action")
         else:
@@ -685,11 +691,11 @@ class MainWindow(Adw.ApplicationWindow):
         if draft:
             maps = [m for m in maps if m["button"] != draft["button"]] + [draft]
         if not self.current or not maps:
-            self.toast("Escolha as teclas e o botão do mouse antes de testar")
+            self.toast(_("Choose the keys and the mouse button before testing"))
             self._set_test_active(False)
             return
         if not self.current.connected:
-            self.toast("O mouse selecionado está desconectado")
+            self.toast(_("The selected mouse is disconnected"))
             self._set_test_active(False)
             return
         if self.detector:
@@ -701,7 +707,7 @@ class MainWindow(Adw.ApplicationWindow):
         engine = Remapper({self.current.key: maps}, require_device=True,
                           on_ready=lambda n: GLib.idle_add(self._on_test_ready))
         self.test_engine = engine
-        self.received_label.set_label("Teclas recebidas: —")
+        self.received_label.set_label(_("Keys received: —"))
 
         def worker():
             try:
@@ -715,9 +721,11 @@ class MainWindow(Adw.ApplicationWindow):
     def _on_test_ready(self):
         if self.test_engine is not None:
             n = self._test_count
-            self.test_status.set_label(
-                f"● Teste ativo com {n} macro{'s' if n > 1 else ''}. "
-                "Use o botão do mouse com o cursor no campo abaixo.")
+            self.test_status.set_label(ngettext(
+                "● Test active with {n} macro. Use the mouse button with the cursor "
+                "in the field below.",
+                "● Test active with {n} macros. Use the mouse button with the cursor "
+                "in the field below.", n).format(n=n))
             self.test_status.set_visible(True)
             self.test_entry.grab_focus()
         return False
@@ -764,38 +772,38 @@ class MainWindow(Adw.ApplicationWindow):
         try:
             config.save(self.cfg)
         except OSError as exc:
-            self.toast(f"Erro ao salvar: {exc}", 6)
+            self.toast(_("Error while saving: {error}").format(error=exc), 6)
             return False
 
         ok, msg = service.apply(bool(devices_cfg))
         self._set_dirty(False)
         self._update_service_status()
         if not ok:
-            self.toast(f"Salvo, mas houve um problema com o serviço. {msg}", 8)
+            self.toast(_("Saved, but there was a problem with the service. {details}").format(details=msg), 8)
         elif devices_cfg:
-            self.toast("Salvo! As macros ficam ativas inclusive após reiniciar.")
+            self.toast(_("Saved! The macros stay active even after a restart."))
         else:
-            self.toast("Salvo. Sem mapeamentos, o serviço foi desativado.")
+            self.toast(_("Saved. With no mappings, the service was disabled."))
         return True
 
-    def _on_disable_service(self, *_):
+    def _on_disable_service(self, *_args):
         if self.test_engine is not None:
             self._stop_test()
         self._service_was_active = False
         if service.disable():
-            self.toast("Serviço desativado. Clique em Salvar para reativar.")
+            self.toast(_("Service disabled. Click Save to turn it back on."))
         else:
-            self.toast("Não foi possível desativar o serviço.")
+            self.toast(_("Could not disable the service."))
         self._update_service_status()
 
     # =============================================================== fechar
-    def _on_close_request(self, *_):
+    def _on_close_request(self, *_args):
         if self.dirty and not self._force_close:
-            dialog = Adw.AlertDialog(heading="Salvar alterações?",
-                                     body="Há mapeamentos que ainda não foram salvos.")
-            dialog.add_response("cancel", "Cancelar")
-            dialog.add_response("discard", "Descartar")
-            dialog.add_response("save", "Salvar")
+            dialog = Adw.AlertDialog(heading=_("Save changes?"),
+                                     body=_("Some mappings have not been saved yet."))
+            dialog.add_response("cancel", _("Cancel"))
+            dialog.add_response("discard", _("Discard"))
+            dialog.add_response("save", _("Save"))
             dialog.set_response_appearance("discard", Adw.ResponseAppearance.DESTRUCTIVE)
             dialog.set_response_appearance("save", Adw.ResponseAppearance.SUGGESTED)
             dialog.set_default_response("save")
