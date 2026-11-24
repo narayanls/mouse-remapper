@@ -123,21 +123,14 @@ The interface uses [gettext](https://www.gnu.org/software/gettext/). Strings in 
 
 The language is picked from `LANGUAGE`, `LC_ALL`, `LC_MESSAGES` and `LANG`.
 
-## Project structure
+## 🛠️ Build with
 
-```
-usr/
-├── bin/mouse-remapper              launcher
-└── share/
-    ├── applications/               .desktop entry
-    ├── icons/                      app icon
-    └── mouse-remapper/
-        ├── main.py                 entry point (GUI or --daemon)
-        ├── core/                   config, devices, remapping engine, daemon, systemd, i18n, updater
-        └── ui/                     GTK 4 / libadwaita interface
-po/                                 translations (gettext)
-pkgbuild/                           Arch Linux packaging
-```
+- [Python 3](https://www.python.org) + [PyGObject](https://pygobject.gnome.org)
+- [GTK4](https://gtk.org) + [Adwaita (libadwaita)](https://gnome.pages.gitlab.gnome.org/libadwaita/)
+- Vibe Coding:
+  Claude Sonnet was used for generate code. Mouse Remapper was revised and tested by humans.
+---
+
 
 ## License
 
